@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Realtor {
+  id          String     @id @default(uuid())
+  fullName    String
+  email       String     @unique
+  password    String
+  title       String?
+  phone       String?
+  landline    String?
+  description String?
+  address     String?
+  address2    String?
+  country     String?
+  state       String?
+  city        String?
+  zipCode     String?
+  facebook    String?
+  twitter     String?
+  linkedin    String?
+  instagram   String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  properties  Property[]
+}
+
+model Property {
+  id          String   @id @default(uuid())
+  title       String
+  status      String // "ForRent", "ForSale"
+  type        String // "House", "Apartment", etc.
+  price       Float
+  area        Int?
+  bedrooms    Int?
+  bathrooms   Int?
+  address     String?
+  city        String?
+  state       String?
+  zipCode     String?
+  description String?
+  age         String? // "0-5 Years", etc.
+  garage      Int?
+  rooms       Int?
+  features    String? // JSON array
+  realtorId   String
+  realtor     Realtor  @relation(fields: [realtorId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
