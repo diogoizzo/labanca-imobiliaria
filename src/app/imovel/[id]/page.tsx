@@ -1,13 +1,13 @@
 import React from "react";
-import Navbar from "../../components/navbar/navbar";
-import HomeSliderTwo from "../../components/slider/home-slider-two";
-import PropertyDetail from "../../components/property/property-detail";
-import DetailSidebar from "../../components/property/detail-sidebar";
-import FooterTop from "../../components/footer-top";
-import Footer from "../../components/footer";
-import ScrollToTop from "../../components/scroll-to-top";
+import HomeSliderTwo from "../../../components/slider/home-slider-two";
+import PropertyDetail from "../../../components/property/property-detail";
+import DetailSidebar from "../../../components/property/detail-sidebar";
+import FooterTop from "../../../components/footer-top";
+import Footer from "../../../components/footer";
+import ScrollToTop from "../../../components/scroll-to-top";
 import { propertyData } from "@/app/data/data";
-import SessionWrapper from "@/app/components/auth/SessionWrapper";
+import SessionWrapper from "@/components/auth/SessionWrapper";
+import SuspenseNavbar from "@/components/navbar/SuspenseNavbar";
 
 export default function Page({ params }: { params: { id: string } }) {
     let data = propertyData.find(
@@ -16,7 +16,7 @@ export default function Page({ params }: { params: { id: string } }) {
     return (
         <>
             <SessionWrapper>
-                <Navbar transparent={false} />
+                <SuspenseNavbar transparent={false} />
             </SessionWrapper>
             <HomeSliderTwo />
 

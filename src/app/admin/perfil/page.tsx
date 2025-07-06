@@ -2,17 +2,20 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-import UserNav from "../../components/navbar/user-nav";
-import AdminSidebar from "../../components/admin-sidebar";
-import FooterTop from "../../components/footer-top";
-import Footer from "../../components/footer";
-import ScrollToTop from "../../components/scroll-to-top";
+import UserNav from "../../../components/navbar/user-nav";
+import AdminSidebar from "../../../components/admin-sidebar";
+import FooterTop from "../../../components/footer-top";
+import Footer from "../../../components/footer";
+import ScrollToTop from "../../../components/scroll-to-top";
+import SessionWrapper from "@/components/auth/SessionWrapper";
 
 export default function Page() {
     let [show, setShow] = useState<boolean>(false);
     return (
         <>
-            <UserNav />
+            <SessionWrapper>
+                <UserNav />
+            </SessionWrapper>
             <div className="page-title">
                 <div className="container">
                     <div className="row">

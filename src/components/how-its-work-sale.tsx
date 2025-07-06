@@ -1,5 +1,5 @@
 import React from "react";
-import { workData } from "../data/data";
+import { workData } from "../app/data/data";
 import Image from "next/image";
 
 interface WorkData {

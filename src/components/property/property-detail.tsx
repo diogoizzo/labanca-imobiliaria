@@ -9,10 +9,10 @@ const Select = dynamic(() => import("react-select"), { ssr: false });
 import ModalVideo from "react-modal-video";
 import Lightbox from "react-18-image-lightbox";
 
-import { galleryImg, propertyFeature } from "../../data/property";
+import { galleryImg, propertyFeature } from "../../app/data/property";
 
-import "../../../../node_modules/react-modal-video/css/modal-video.css";
-import "../../../../node_modules/react-18-image-lightbox/style.css";
+import "../../../node_modules/react-modal-video/css/modal-video.css";
+import "../../../node_modules/react-18-image-lightbox/style.css";
 
 export default function PropertyDetail() {
     const [isOpen, setIsOpen] = useState(false);

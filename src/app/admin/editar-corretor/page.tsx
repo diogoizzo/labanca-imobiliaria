@@ -1,16 +1,17 @@
 import React from "react";
-
-import Navbar from "../../components/navbar/navbar";
-import FooterTop from "../../components/footer-top";
-import Footer from "../../components/footer";
-import AddImg from "../../components/add-img";
-import ScrollToTop from "../../components/scroll-to-top";
+import SuspenseNavbar from "../../../components/navbar/SuspenseNavbar";
+import FooterTop from "../../../components/footer-top";
+import Footer from "../../../components/footer";
+import AddImg from "../../../components/add-img";
+import ScrollToTop from "../../../components/scroll-to-top";
+import SessionWrapper from "@/components/auth/SessionWrapper";
 
 export default function Page() {
     return (
         <>
-            <Navbar transparent={false} />
-
+            <SessionWrapper>
+                <SuspenseNavbar transparent={false} />
+            </SessionWrapper>
             <div className="page-title">
                 <div className="container">
                     <div className="row">

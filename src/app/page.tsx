@@ -1,22 +1,23 @@
 import Link from "next/link";
-import FormOne from "./components/form/form-one";
-import HowItsWorkRent from "./components/how-its-work-rent";
-import GridPropertyOne from "./components/property/grid-property-one";
-import ClientOne from "./components/client-one";
-import Footer from "./components/footer";
-import FooterTop from "./components/footer-top";
-import ScrollToTop from "./components/scroll-to-top";
-import ExplorePropertyOne from "./components/explore-property-one";
-import CtaOne from "./components/property/cta-one";
-import Navbar from "./components/navbar/navbar";
-import SessionWrapper from "./components/auth/SessionWrapper";
-import HowItsWorkSale from "./components/how-its-work-sale";
+import FormOne from "../components/form/form-one";
+import HowItsWorkRent from "../components/how-its-work-rent";
+import GridPropertyOne from "../components/property/grid-property-one";
+import ClientOne from "../components/client-one";
+import Footer from "../components/footer";
+import FooterTop from "../components/footer-top";
+import ScrollToTop from "../components/scroll-to-top";
+import ExplorePropertyOne from "../components/explore-property-one";
+import CtaOne from "../components/property/cta-one";
+import Navbar from "../components/navbar/navbar";
+import SessionWrapper from "../components/auth/SessionWrapper";
+import HowItsWorkSale from "../components/how-its-work-sale";
+import SuspenseNavbar from "@/components/navbar/SuspenseNavbar";
 
 export default function Home() {
     return (
         <>
             <SessionWrapper>
-                <Navbar transparent={false} />
+                <SuspenseNavbar transparent={false} />
             </SessionWrapper>
             <div
                 className="image-cover hero-banner"

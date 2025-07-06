@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { FiChevronDown } from "react-icons/fi";
 import { TiSocialGooglePlus, TiSocialFacebook } from "react-icons/ti";
 
-import { navProperty } from "../../data/data";
+import { navProperty } from "../../app/data/data";
 
 export default function UserNav() {
     const [activeMenu, setActiveMenu] = useState<{

@@ -1,7 +1,7 @@
-import UserNav from "../components/navbar/user-nav";
-import FooterTop from "../components/footer-top";
-import Footer from "../components/footer";
-import ScrollToTop from "../components/scroll-to-top";
+import UserNav from "../../components/navbar/user-nav";
+import FooterTop from "../../components/footer-top";
+import Footer from "../../components/footer";
+import ScrollToTop from "../../components/scroll-to-top";
 import NovoCorretorForm from "./NovoCorretorForm";
 
 export default function Page() {
