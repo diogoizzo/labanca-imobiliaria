@@ -1,5 +1,5 @@
 import React from "react";
-import { workData } from "../data/data";
+import { workDataRent } from "../data/data";
 import Image from "next/image";
 
 interface WorkData {
@@ -9,25 +9,27 @@ interface WorkData {
     bg: string;
 }
 
-export default function HowItsWork() {
+export default function HowItsWorkRent() {
     return (
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-xl-6 col-lg-7 col-md-10 text-center">
                     <div className="sec-heading center">
-                        <h2>Como Funciona?</h2>
-                        <p>
+                        <h2 className="title-text">
+                            Conheça o procedimento de Locação.
+                        </h2>
+                        <p className="normal-text">
                             Descubra como a Labanca Imobiliária simplifica o
-                            processo de compra, venda e locação de imóveis em
-                            Barra do Piraí. Nosso método é transparente,
-                            eficiente e focado em você.
+                            processo de locação de imóveis em Barra do Piraí.
+                            Nosso método é transparente, eficiente e focado em
+                            você.
                         </p>
                     </div>
                 </div>
             </div>
 
             <div className="row justify-content-center g-4">
-                {workData.map((item: WorkData, index: number) => {
+                {workDataRent.map((item: WorkData, index: number) => {
                     return (
                         <div className="col-lg-4 col-md-4" key={index}>
                             <div
@@ -41,15 +43,15 @@ export default function HowItsWork() {
                                     >
                                         <Image
                                             src={item.image}
-                                            width={45}
-                                            height={45}
+                                            width={38}
+                                            height={38}
                                             alt=""
                                         />
                                     </div>
                                 </div>
                                 <div className="middle-icon-features-content">
                                     <h4>{item.title}</h4>
-                                    <p>{item.desc}</p>
+                                    <p className="normal-text">{item.desc}</p>
                                 </div>
                             </div>
                         </div>

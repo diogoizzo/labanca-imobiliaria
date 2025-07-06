@@ -18,7 +18,10 @@ export default function GridOne() {
                         <Link
                             href="#"
                             className="btn btn-dark full-width mb-4"
-                            onClick={() => setShow(!show)}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setShow(!show);
+                            }}
                         >
                             <span className="svg-icon text-light svg-icon-2hx me-2">
                                 <svg
@@ -46,7 +49,7 @@ export default function GridOne() {
                 </div>
 
                 <div className="col-lg-8 col-md-12 col-sm-12">
-                    <div className="row justify-content-center">
+                    {/* <div className="row justify-content-center">
                         <div className="col-lg-12 col-md-12">
                             <div className="item-shorting-box">
                                 <div className="item-shorting clearfix">
@@ -143,7 +146,7 @@ export default function GridOne() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="row justify-content-center g-4">
                         {propertyData.slice(0, 6).map((item, index) => {

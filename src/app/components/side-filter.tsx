@@ -71,7 +71,7 @@ export default function SideFilter({
                         </div>
                     </div>
 
-                    <div className="position-relative d-flex flex-xl-row flex-column align-items-center">
+                    {/* <div className="position-relative d-flex flex-xl-row flex-column align-items-center">
                         <div className="verifyd-prt-block flex-fill full-width my-1 me-1">
                             <div className="d-flex align-items-center justify-content-center justify-content-between border rounded-3 px-2 py-3">
                                 <div className="eliok-cliops d-flex align-items-center">
@@ -153,7 +153,7 @@ export default function SideFilter({
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="filter_wraps">
                         <div className="single_search_boxed">
@@ -161,7 +161,10 @@ export default function SideFilter({
                                 <h4>
                                     <Link
                                         href="#"
-                                        onClick={() => setOpen(!open)}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setOpen(!open);
+                                        }}
                                         className={open ? "" : "collapsed"}
                                     >
                                         Onde
@@ -322,7 +325,10 @@ export default function SideFilter({
                                 <h4>
                                     <Link
                                         href="#"
-                                        onClick={() => setOpen2(!open2)}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setOpen2(!open2);
+                                        }}
                                         className={open2 ? "" : "collapsed"}
                                     >
                                         Tipos de Propriedade
@@ -454,7 +460,10 @@ export default function SideFilter({
                                 <h4>
                                     <Link
                                         href="#"
-                                        onClick={() => setOpen3(!open3)}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setOpen3(!open3);
+                                        }}
                                         className={open3 ? "" : "collapsed"}
                                     >
                                         Quartos
@@ -572,7 +581,10 @@ export default function SideFilter({
                                 <h4>
                                     <Link
                                         href="#"
-                                        onClick={() => setOpen4(!open4)}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setOpen4(!open4);
+                                        }}
                                         className={open4 ? "" : "collapsed"}
                                     >
                                         Faixa de Preço
@@ -709,7 +721,10 @@ export default function SideFilter({
                                 <h4>
                                     <Link
                                         href="#"
-                                        onClick={() => setOpen5(!open5)}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setOpen5(!open5);
+                                        }}
                                         className={open5 ? "" : "collapsed"}
                                     >
                                         Estilo
@@ -841,7 +856,10 @@ export default function SideFilter({
                                 <h4>
                                     <Link
                                         href="#"
-                                        onClick={() => setOpen6(!open6)}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setOpen6(!open6);
+                                        }}
                                         className={open6 ? "" : "collapsed"}
                                     >
                                         Comodidades
@@ -1041,12 +1059,12 @@ export default function SideFilter({
                         </div>
                     </div>
 
-                    <div className="form-group filter_button">
+                    <div className="form-group filter_button mt-4">
                         <button
                             type="submit"
                             className="btn btn btn-primary rounded full-width"
                         >
-                            Mostrar 22 Resultados
+                            Pesquisar
                         </button>
                     </div>
                 </div>

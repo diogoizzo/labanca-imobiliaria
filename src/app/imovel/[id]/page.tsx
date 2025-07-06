@@ -7,6 +7,7 @@ import FooterTop from "../../components/footer-top";
 import Footer from "../../components/footer";
 import ScrollToTop from "../../components/scroll-to-top";
 import { propertyData } from "@/app/data/data";
+import SessionWrapper from "@/app/components/auth/SessionWrapper";
 
 export default function Page({ params }: { params: { id: string } }) {
     let data = propertyData.find(
@@ -14,7 +15,9 @@ export default function Page({ params }: { params: { id: string } }) {
     );
     return (
         <>
-            <Navbar transparent={false} />
+            <SessionWrapper>
+                <Navbar transparent={false} />
+            </SessionWrapper>
             <HomeSliderTwo />
 
             <section className="gray-simple">

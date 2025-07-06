@@ -38,7 +38,7 @@ export default function GridProperty({
             <div className={`listing-img-wrapper p-3 `}>
                 <div className="list-img-slide position-relative">
                     <div className="position-absolute top-0 left-0 ms-3 mt-3 z-1">
-                        {item.tag.map((el: any, index: number) => {
+                        {/* {item.tag.map((el: any, index: number) => {
                             return (
                                 <div
                                     key={index}
@@ -80,7 +80,7 @@ export default function GridProperty({
                                         : el}
                                 </div>
                             );
-                        })}
+                        })} */}
                     </div>
                     <div className="click rounded-3 overflow-hidden mb-0">
                         <TinySlider settings={settings}>
@@ -179,11 +179,10 @@ export default function GridProperty({
                         </h6>
                     </div>
                     <div className="footer-flex">
-                        <Link
-                            href={`/propriedade/${item.id}`}
-                            className="prt-view"
-                        >
-                            <img src="/img/svg/send.svg" alt="" />
+                        <Link href={`/imovel/1`} className="prt-view">
+                            <button className="btn btn-light-primary fw-medium rounded btn-sm norma-text ">
+                                Saiba mais...
+                            </button>
                         </Link>
                     </div>
                 </div>

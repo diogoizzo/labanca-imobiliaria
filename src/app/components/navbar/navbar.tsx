@@ -88,7 +88,7 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                 className="nav-toggle"
                                 onClick={() => setIsToggle(!toggle)}
                             ></div>
-                            <div className="mobile_nav">
+                            {/* <div className="mobile_nav">
                                 <ul>
                                     <li>
                                         <Link
@@ -104,7 +104,7 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                         </Link>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> */}
                         </div>
                         <div
                             className={`nav-menus-wrapper  ${
@@ -120,34 +120,40 @@ export default function Navbar({ transparent }: { transparent: any }) {
                             >
                                 ✕
                             </span>
-                            <ul className="nav-menu align-to-right">
+                            <ul className="nav-menu align-to-right ">
                                 <li
                                     className={`${
                                         current === "/" ? "active" : ""
-                                    }`}
+                                    } `}
                                 >
-                                    <Link href="/">Início</Link>
+                                    <Link className="menu-font" href="/">
+                                        Início
+                                    </Link>
                                 </li>
                                 <li
                                     className={`${
                                         current === "/imoveis" ? "active" : ""
                                     }`}
                                 >
-                                    <Link href="/imoveis">Imóveis</Link>
+                                    <Link className="menu-font" href="/imoveis">
+                                        Imóveis
+                                    </Link>
                                 </li>
                                 <li
                                     className={`${
                                         current === "/contato" ? "active" : ""
                                     }`}
                                 >
-                                    <Link href="/contato">Contato</Link>
+                                    <Link className="menu-font" href="/contato">
+                                        Contato
+                                    </Link>
                                 </li>
                                 <li>
                                     <Link
                                         href="#"
                                         data-bs-toggle="modal"
                                         data-bs-target="#login"
-                                        className="fw-medium text-muted-2"
+                                        className="fw-medium  menu-font"
                                         onClick={() => setLogin(!login)}
                                     >
                                         Entrar
@@ -220,9 +226,6 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                 </span>
                             </span>
                             <div className="modal-body">
-                                <h4 className="modal-header-title">
-                                    Acessar Conta
-                                </h4>
                                 <div className="d-flex align-items-center justify-content-center mb-3">
                                     <span className="svg-icon text-primary svg-icon-2hx">
                                         <svg
@@ -244,6 +247,8 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                         </svg>
                                     </span>
                                 </div>
+                                <h4 className="modal-header-title">Login</h4>
+
                                 <div className="login-form">
                                     <form>
                                         <div className="form-floating mb-3">
@@ -277,7 +282,7 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                             )}
                                         </div>
 
-                                        <div className="form-group mb-3">
+                                        {/* <div className="form-group mb-3">
                                             <div className="d-flex align-items-center justify-content-between">
                                                 <div className="flex-shrink-0 flex-first">
                                                     <div className="form-check form-check-inline">
@@ -304,7 +309,7 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                                     </Link>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         <div className="form-group">
                                             <button
@@ -316,7 +321,8 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                                     const result = await signIn(
                                                         "credentials",
                                                         {
-                                                            redirect: false,
+                                                            callbackUrl:
+                                                                "/admin/perfil",
                                                             email,
                                                             password,
                                                         }
@@ -338,7 +344,7 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                         </div>
                                     </form>
                                 </div>
-                                <div className="modal-divider">
+                                {/* <div className="modal-divider">
                                     <span>Ou acesse com</span>
                                 </div>
                                 <div className="social-login mb-3">
@@ -371,7 +377,7 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                             Criar uma Conta
                                         </Link>
                                     </p>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

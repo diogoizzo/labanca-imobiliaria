@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-miterlimit:2;">
+    <rect id="Prancheta1" x="0" y="0" width="48" height="48" style="fill:none;"/>
+    <clipPath id="_clip1">
+        <rect id="Prancheta11" serif:id="Prancheta1" x="0" y="0" width="48" height="48"/>
+    </clipPath>
+    <g clip-path="url(#_clip1)">
+        <g transform="matrix(0.702762,0,0,0.702374,-600.735,-70.8903)">
+            <path d="M904.482,142.417L919.263,157.198C921.58,159.515 921.579,163.274 919.259,165.59C916.942,167.904 913.188,167.902 910.873,165.586L898.907,153.621" style="fill:none;stroke:rgb(1,162,113);stroke-width:3.75px;"/>
+        </g>
+        <g transform="matrix(0.702762,0,0,0.702374,-600.735,-70.8903)">
+            <path d="M864.12,145.926C873.919,155.725 889.806,155.725 899.604,145.926C909.402,136.128 909.402,120.242 899.604,110.443C889.806,100.644 873.919,100.644 864.12,110.443C854.322,120.242 854.322,136.128 864.12,145.926Z" style="fill:none;stroke:rgb(1,162,113);stroke-width:3.75px;"/>
+        </g>
+        <g transform="matrix(0.702762,0,0,0.702374,-600.735,-70.8903)">
+            <path d="M870.461,139.586C876.758,145.882 886.967,145.882 893.264,139.586C899.56,133.29 899.56,123.081 893.264,116.784C886.967,110.487 876.758,110.487 870.461,116.784C864.164,123.081 864.164,133.29 870.461,139.586Z" style="fill:none;stroke:rgb(180,223,205);stroke-width:3.75px;"/>
+        </g>
+    </g>
+</svg>

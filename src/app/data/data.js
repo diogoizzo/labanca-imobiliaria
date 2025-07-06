@@ -207,6 +207,27 @@ export const workData = [
     },
 ];
 
+export const workDataRent = [
+    {
+        image: "/img/svg/lupa.svg",
+        title: "Busque o imóvel",
+        desc: "Encontre o imóvel ideal para você em nosso site, com diversas opções de locação em Barra do Piraí.",
+        bg: "f-light-success",
+    },
+    {
+        image: "/img/svg/telefone.svg",
+        title: "Contate o corretor",
+        desc: "Entre em contato com o corretor responsável pelo imóvel para agendar uma visita e tirar suas dúvidas.",
+        bg: "f-light-warning",
+    },
+    {
+        image: "/img/svg/contrato.svg",
+        title: "Assine o contrato",
+        desc: "Após a visita e os ajustes finais, feche o contrato de locação com segurança e transparência.",
+        bg: "f-light-purple",
+    },
+];
+
 export const bestLoction = [
     {
         image: "/img/c-1.png",
@@ -510,21 +531,6 @@ export const explorePlace = [
         image: "/img/ct-10.png",
         loction: "Paty do Alferes",
         property: "12 Imóveis",
-    },
-    {
-        image: "/img/ct-11.png",
-        loction: "Engenheiro Paulo de Frontin",
-        property: "22 Imóveis",
-    },
-    {
-        image: "/img/ct-12.png",
-        loction: "Paraíba do Sul",
-        property: "15 Imóveis",
-    },
-    {
-        image: "/img/ct-13.png",
-        loction: "Três Rios",
-        property: "13 Imóveis",
     },
 ];
 

@@ -129,7 +129,7 @@ export default function Footer() {
                             {propertyLinks.map((link, index) => (
                                 <div
                                     key={index}
-                                    className="col-lg-3 col-md-4 col-sm-6 mb-2 "
+                                    className="col-lg-3 col-md-4 col-sm-6 mb-2 text-center text-md-start"
                                 >
                                     <Link
                                         href={link.href}
@@ -147,23 +147,14 @@ export default function Footer() {
 
             <div className="footer-bottom  py-3">
                 <div className="container">
-                    <div className="row align-items-center">
-                        <div className="col-lg-6 col-md-6">
-                            <p className="mb-0">
+                    <div className="row align-items-center flex-column flex-md-row">
+                        <div className="col-lg-6 col-md-6 text-center text-md-start order-0 order-md-0">
+                            <p className="mb-2 mb-md-0">
                                 © {new Date().getFullYear()} Labanca
-                                Imobiliária. Desenvolvido com{" "}
-                                <i className="fa-solid fa-heart ms-1 text-danger"></i>{" "}
-                                por{" "}
-                                <Link
-                                    href="https://shreethemes.in/"
-                                    target="_blank"
-                                    className="text-light"
-                                >
-                                    Shreethemes
-                                </Link>
+                                Imobiliária.
                             </p>
                         </div>
-                        <div className="col-lg-6 col-md-6 text-end">
+                        <div className="col-lg-6 col-md-6 text-center text-md-end order-1 order-md-1 d-flex justify-content-center justify-content-md-end">
                             <ul className="footer-bottom-social">
                                 <li>
                                     <Link

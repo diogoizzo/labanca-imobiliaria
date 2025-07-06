@@ -208,7 +208,7 @@ export default function PropertyDetail() {
                 />
             </div>
 
-            <div className="property_block_wrap style-2">
+            {/* <div className="property_block_wrap style-2">
                 <div className="property_block_wrap_header">
                     <Link
                         href="#"
@@ -334,7 +334,7 @@ export default function PropertyDetail() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="property_block_wrap style-2">
                 <div className="property_block_wrap_header">
@@ -441,7 +441,7 @@ export default function PropertyDetail() {
                 </div>
             </div>
 
-            <div className="rating-overview">
+            {/* <div className="rating-overview">
                 <div className="rating-overview-box">
                     <span className="rating-overview-box-total">4.2</span>
                     <span className="rating-overview-box-percent">de 5.0</span>
@@ -518,9 +518,9 @@ export default function PropertyDetail() {
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            <div className="property_block_wrap style-2">
+            {/* <div className="property_block_wrap style-2">
                 <div className="property_block_wrap_header">
                     <Link
                         href="#"
@@ -622,9 +622,9 @@ export default function PropertyDetail() {
                         </Link>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            <div className="property_block_wrap style-2">
+            {/* <div className="property_block_wrap style-2">
                 <div className="property_block_wrap_header">
                     <Link
                         href="#"
@@ -784,7 +784,7 @@ export default function PropertyDetail() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="property_block_wrap style-2">
                 <div className="property_block_wrap_header">
@@ -795,7 +795,7 @@ export default function PropertyDetail() {
                         className={open10 ? "" : "collapsed"}
                     >
                         <h4 className="property_block_title">
-                            Escrever uma Avaliação
+                            Enviar Mensagem para o Corretor
                         </h4>
                     </Link>
                 </div>
@@ -808,23 +808,6 @@ export default function PropertyDetail() {
                     <div className="block-body">
                         <form className="form-submit">
                             <div className="row">
-                                <div className="col-lg-12 col-md-12 col-sm-12">
-                                    <div className="form-group">
-                                        <textarea
-                                            className="form-control ht-80"
-                                            placeholder="Mensagem"
-                                        ></textarea>
-                                    </div>
-                                </div>
-                                <div className="col-lg-12 col-md-12 col-sm-12">
-                                    <div className="form-group">
-                                        <Select
-                                            options={rating}
-                                            placeholder="Escolha a Avaliação"
-                                            className="form-control"
-                                        />
-                                    </div>
-                                </div>
                                 <div className="col-lg-6 col-md-6 col-sm-12">
                                     <div className="form-group">
                                         <input
@@ -845,11 +828,29 @@ export default function PropertyDetail() {
                                 </div>
                                 <div className="col-lg-12 col-md-12 col-sm-12">
                                     <div className="form-group">
+                                        <textarea
+                                            className="form-control ht-80"
+                                            placeholder="Mensagem"
+                                        ></textarea>
+                                    </div>
+                                </div>
+                                {/* <div className="col-lg-12 col-md-12 col-sm-12">
+                                    <div className="form-group">
+                                        <Select
+                                            options={rating}
+                                            placeholder="Escolha a Avaliação"
+                                            className="form-control"
+                                        />
+                                    </div>
+                                </div> */}
+
+                                <div className="col-lg-12 col-md-12 col-sm-12">
+                                    <div className="form-group">
                                         <button
                                             className="btn btn-primary fw-medium px-lg-5 rounded"
                                             type="submit"
                                         >
-                                            Enviar Avaliação
+                                            Enviar Mensagem
                                         </button>
                                     </div>
                                 </div>

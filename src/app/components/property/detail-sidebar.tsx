@@ -7,21 +7,6 @@ import { featureProperty } from "@/app/data/property";
 export default function DetailSidebar() {
     return (
         <>
-            <div className="like_share_wrap b-0">
-                <ul className="like_share_list">
-                    <li>
-                        <Link href="#" className="btn btn-likes">
-                            <i className="fas fa-share"></i>Compartilhar
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="#" className="btn btn-likes">
-                            <i className="fas fa-heart"></i>Salvar
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-
             <div className="details-sidebar">
                 <div className="sides-widget">
                     <div className="sides-widget-header bg-primary">
@@ -33,20 +18,19 @@ export default function DetailSidebar() {
                                 alt=""
                             />
                         </div>
+
                         <div className="sides-widget-details">
                             <h4>
-                                <Link href="#">Corretor(a) Responsável</Link>
+                                <Link href="#">Camila Barros</Link>
                             </h4>
-                            <span>
-                                <i className="lni-phone-handset"></i>(24)
-                                99999-9999
-                            </span>
+
+                            <span>(24) 99999-9999</span>
                         </div>
                         <div className="clearfix"></div>
                     </div>
 
                     <div className="sides-widget-body simple-form">
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label>E-mail</label>
                             <input
                                 type="text"
@@ -61,21 +45,28 @@ export default function DetailSidebar() {
                                 className="form-control"
                                 placeholder="Seu Telefone"
                             />
-                        </div>
-                        <div className="form-group">
+                        </div> */}
+                        {/* <div className="form-group">
                             <label>Mensagem</label>
                             <textarea
                                 className="form-control"
                                 defaultValue="Tenho interesse nesta propriedade e gostaria de mais informações."
                             />
-                        </div>
+                        </div> */}
                         <button className="btn btn-light-primary fw-medium rounded full-width">
+                            <img
+                                src="/img/svg/whatsapp-icon.svg"
+                                width={20}
+                                height={20}
+                                className="me-3 whatsapp-icon"
+                                alt=""
+                            />
                             Enviar Mensagem
                         </button>
                     </div>
                 </div>
 
-                <div className="sides-widget">
+                {/* <div className="sides-widget">
                     <div className="sides-widget-header bg-primary">
                         <div className="sides-widget-details">
                             <h4>Calculadora de Financiamento</h4>
@@ -132,7 +123,7 @@ export default function DetailSidebar() {
                             Calcular
                         </button>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="sidebar-widgets">
                     <h4>Propriedades em Destaque</h4>

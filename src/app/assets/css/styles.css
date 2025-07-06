@@ -5911,6 +5911,7 @@ span.tag_t {
     font-size: 16px;
 }
 .block-body {
+    font-size: 16px;
     line-height: 1.7;
     display: inline-block;
     width: 100%;
@@ -6996,15 +6997,16 @@ ul.deatil_features li {
     width: 33.333333%;
     flex: 0 0 33.333333%;
     display: inline-block;
-    font-size: 14px;
+    font-size: 16px;
     color: #8a98a9;
     margin-bottom: 1.2rem;
+    padding-right: 5px;
     line-height: 1.5;
 }
 ul.deatil_features li strong {
     color: #164268;
     display: inline-block;
-    font-size: 14px;
+    font-size: 16px;
     margin-right: 10px;
 }
 .nearby-wrap {
@@ -7690,9 +7692,9 @@ a.classical-cats-boxs {
     padding: 2.5em 3em;
 }
 h4.modal-header-title {
-    font-size: 3.5em;
+    font-size: 2.5em;
     text-align: center;
-    margin: 1rem 0 1em 0;
+    margin: 2rem 0 1em 0;
     font-weight: 800;
     line-height: 0;
 }
@@ -12518,4 +12520,31 @@ th.next.available,
 
 .border-footer {
     border-top: 1px solid #e9edf3 !important;
+}
+
+.menu-font {
+    font-size: 18px !important;
+}
+
+.normal-text {
+    font-size: 18px !important;
+    font-weight: 400 !important;
+}
+
+.simple-text {
+    font-size: 16px !important;
+}
+
+.title-text {
+    font-size: 30px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important ;
+}
+
+.whatsapp-icon {
+    transition: filter 0.2s ease !important;
+}
+
+.btn:hover .whatsapp-icon {
+    filter: brightness(0) invert(1) !important; /* Torna o ícone branco */
 }

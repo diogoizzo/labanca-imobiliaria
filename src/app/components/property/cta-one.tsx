@@ -16,11 +16,11 @@ export default function CtaOne() {
                 <div className="row justify-content-center">
                     <div className="col-lg-8 col-md-8">
                         <div className="caption-wrap-content text-center">
-                            <h2 className="fs-1">
+                            <h2 className="fs-1 title-text">
                                 Encontre o Lugar Perfeito para Você em Barra do
                                 Piraí
                             </h2>
-                            <p className="mb-5">
+                            <p className="mb-5 normal-text">
                                 A Labanca Imobiliária oferece as melhores opções
                                 de imóveis para compra, venda e locação na
                                 região. Seu novo lar ou investimento está aqui!

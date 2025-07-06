@@ -57,9 +57,9 @@ export default function HomeSliderTwo() {
                     </div>
                 </Slider>
             </div>
-            <Link href="#" className="btn-view-pic">
+            {/* <Link href="#" className="btn-view-pic">
                 Ver fotos
-            </Link>
+            </Link> */}
         </div>
     );
 }

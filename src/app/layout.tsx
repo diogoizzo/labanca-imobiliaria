@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./assets/css/styles.css";
 import "./assets/css/colors.css";
+import QueryClientProviders from "./QueryClientProvider";
 
 export const metadata: Metadata = {
     title: "Labanca Imobiliária - Seu Imóvel em Barra do Piraí",
@@ -16,7 +17,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className="blue-skin">{children}</body>
+            <body className="blue-skin">
+                <QueryClientProviders>{children}</QueryClientProviders>
+            </body>
         </html>
     );
 }
