@@ -22,10 +22,10 @@ export default function SideFilter({
             style={{ left: "0" }}
         >
             <div className="search-sidebar_header">
-                <h4 className="ssh_heading">Fechar Filtro</h4>
+                <h4 className="ssh_heading">Filtros</h4>
                 <button
                     className="w3-bar-item w3-button w3-large"
-                    onClick={() => setShow}
+                    onClick={() => setShow(false)}
                 >
                     <i className="fa-regular fa-circle-xmark fs-5 text-muted-2"></i>
                 </button>
