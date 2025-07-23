@@ -35,20 +35,6 @@ export default function Page() {
                 <section className="bg-light">
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col-lg-12 col-md-12">
-                                <div className="filter_search_opt">
-                                    <Link
-                                        href="#"
-                                        className="btn btn-dark full-width mb-4"
-                                        onClick={() => setShow(!show)}
-                                    >
-                                        Navegação do Painel
-                                        <i className="fa-solid fa-bars ms-2"></i>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
                             <div className="col-lg-3 col-md-12">
                                 <AdminSidebar show={show} setShow={setShow} />
                             </div>

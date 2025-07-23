@@ -30,15 +30,6 @@ export default function AdminSidebar({
             </div>
 
             <div className="sidebar-widgets">
-                <div className="d-user-avater">
-                    <img
-                        src="/img/team-1.jpg"
-                        className="img-fluid avater"
-                        alt=""
-                    />
-                    <h4>Usuário</h4>
-                    <span>Barra do Piraí, RJ</span>
-                </div>
                 <div className="d-navigation">
                     <ul>
                         <li

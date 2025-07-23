@@ -4,10 +4,10 @@ import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 import { getRealtor } from "@/services/realtorService";
 import LoadingSpinner from "./LoadingSpinner";
+import { FaPencilAlt } from "react-icons/fa";
 
 export default function ProfileDisplay() {
     const { data: session } = useSession();
-    //console.log("Session Data:", session);
     const {
         data: realtor,
         isLoading,
@@ -24,7 +24,9 @@ export default function ProfileDisplay() {
     if (isLoading) {
         return (
             <div className="form-submit">
-                <h4>Sua Conta Labanca Imobiliária</h4>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Perfil</h4>
+                </div>
                 <div className="submit-section">
                     <LoadingSpinner />
                 </div>
@@ -35,7 +37,9 @@ export default function ProfileDisplay() {
     if (error) {
         return (
             <div className="form-submit">
-                <h4>Sua Conta Labanca Imobiliária</h4>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Perfil</h4>
+                </div>
                 <div className="submit-section">
                     <p>Erro ao carregar dados</p>
                 </div>
@@ -46,7 +50,9 @@ export default function ProfileDisplay() {
     if (!realtor) {
         return (
             <div className="form-submit">
-                <h4>Sua Conta Labanca Imobiliária</h4>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Perfil</h4>
+                </div>
                 <div className="submit-section">
                     <p>Nenhum dado encontrado</p>
                 </div>
@@ -56,12 +62,29 @@ export default function ProfileDisplay() {
 
     return (
         <div className="dashboard-wraper">
+            {/* Seção Perfil */}
             <div className="form-submit">
-                <h4>Sua Conta Labanca Imobiliária</h4>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Perfil</h4>
+                    <button
+                        type="button"
+                        className="btn d-flex align-items-center justify-content-center p-0"
+                        style={{
+                            width: "35px",
+                            height: "35px",
+                            backgroundColor: "#084da3",
+                            border: "none",
+                            borderRadius: "4px",
+                            color: "#ffffff",
+                        }}
+                    >
+                        <FaPencilAlt size={15} />
+                    </button>
+                </div>
                 <div className="submit-section">
                     <div className="row">
                         <div className="form-group col-md-6">
-                            <label className="mb-2">Seu Nome</label>
+                            <label className="mb-2">Nome</label>
                             <p className="form-control">
                                 {realtor.fullName || "Não informado"}
                             </p>
@@ -73,7 +96,7 @@ export default function ProfileDisplay() {
                             </p>
                         </div>
                         <div className="form-group col-md-6">
-                            <label className="mb-2">Seu Título</label>
+                            <label className="mb-2">Título</label>
                             <p className="form-control">
                                 {realtor.title || "Não informado"}
                             </p>
@@ -118,6 +141,7 @@ export default function ProfileDisplay() {
                 </div>
             </div>
 
+            {/* Seção Contas Sociais */}
             <div className="form-submit">
                 <h4>Contas Sociais</h4>
                 <div className="submit-section">
