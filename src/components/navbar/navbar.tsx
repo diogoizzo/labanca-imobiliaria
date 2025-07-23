@@ -151,15 +151,24 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link
-                                        href="#"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#login"
-                                        className="fw-medium  menu-font"
-                                        onClick={() => setLogin(!login)}
-                                    >
-                                        Entrar
-                                    </Link>
+                                    {session ? (
+                                        <Link
+                                            href="/admin/perfil"
+                                            className="fw-medium menu-font"
+                                        >
+                                            Dashboard
+                                        </Link>
+                                    ) : (
+                                        <Link
+                                            href="#"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#login"
+                                            className="fw-medium menu-font"
+                                            onClick={() => setLogin(!login)}
+                                        >
+                                            Entrar
+                                        </Link>
+                                    )}
                                 </li>
                             </ul>
                         </div>
