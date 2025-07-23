@@ -37,17 +37,6 @@ export default function RealtorForm({
 }: RealtorFormProps) {
     return (
         <>
-            <div className="form-submit middle-logo">
-                <h3>Sua Imagem Profissional</h3>
-                <div className="submit-section">
-                    <div className="form-row">
-                        <div className="form-group col-md-12 position-relative">
-                            <AddImg />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div className="form-submit">
                 <h3>Informações Básicas</h3>
                 <div className="submit-section">

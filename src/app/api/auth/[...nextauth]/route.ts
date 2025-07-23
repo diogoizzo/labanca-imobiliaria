@@ -57,6 +57,9 @@ export const authOptions: NextAuthOptions = {
             }
             return session;
         },
+        async redirect({ url, baseUrl }) {
+            return `${baseUrl}/admin/perfil`;
+        },
     },
     session: {
         strategy: "jwt",

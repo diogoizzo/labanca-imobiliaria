@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Navbar({ transparent }: { transparent: any }) {
     const [windowWidth, setWindowWidth] = useState(0);
@@ -13,6 +14,7 @@ export default function Navbar({ transparent }: { transparent: any }) {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const { data: session } = useSession();
     const searchParams = useSearchParams();
@@ -248,6 +250,17 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                     </span>
                                 </div>
                                 <h4 className="modal-header-title">Login</h4>
+                                {error && (
+                                    <div
+                                        className="alert alert-danger border-0 rounded-2 mt-2 py-2 px-3 small w-100 text-center"
+                                        role="alert"
+                                        style={{
+                                            background: "#fff4f4",
+                                        }}
+                                    >
+                                        {error}
+                                    </div>
+                                )}
 
                                 <div className="login-form">
                                     <form>
@@ -275,11 +288,6 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                                 }
                                             />
                                             <label>Senha</label>
-                                            {error && (
-                                                <div className="text-danger small mt-2">
-                                                    {error}
-                                                </div>
-                                            )}
                                         </div>
 
                                         {/* <div className="form-group mb-3">
@@ -321,16 +329,20 @@ export default function Navbar({ transparent }: { transparent: any }) {
                                                     const result = await signIn(
                                                         "credentials",
                                                         {
-                                                            callbackUrl:
-                                                                "/admin/perfil",
+                                                            redirect: false,
                                                             email,
                                                             password,
                                                         }
                                                     );
                                                     if (result?.error) {
-                                                        setError(result.error);
+                                                        setError(
+                                                            "Login ou senha inválidos"
+                                                        );
                                                     } else {
                                                         setLogin(false);
+                                                        router.push(
+                                                            "/admin/perfil"
+                                                        );
                                                     }
                                                     setLoading(false);
                                                 }}
