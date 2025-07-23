@@ -7,6 +7,7 @@ import { FiChevronDown } from "react-icons/fi";
 import { TiSocialGooglePlus, TiSocialFacebook } from "react-icons/ti";
 
 import { navProperty } from "../../app/data/data";
+import { useSession } from "next-auth/react";
 
 export default function UserNav() {
     const [activeMenu, setActiveMenu] = useState<{
@@ -18,6 +19,8 @@ export default function UserNav() {
     const [property, setProperty] = useState<boolean>(false);
     const [activeTab, setActiveTab] = useState<number>(1);
     const [userMenu, setUserMenu] = useState<boolean>(false);
+
+    const { data: session } = useSession();
 
     let [scroll, setScroll] = useState<boolean>(false);
 
@@ -1465,7 +1468,8 @@ export default function UserNav() {
                                                     className="avater-img"
                                                     alt=""
                                                 />
-                                                Olá, Admin
+                                                Olá,{" "}
+                                                {session?.user?.name || "Admin"}
                                             </button>
                                             <div
                                                 className="dropdown-menu pull-right animated flipInX"

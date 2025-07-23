@@ -7,7 +7,7 @@ import LoadingSpinner from "./LoadingSpinner";
 
 export default function ProfileDisplay() {
     const { data: session } = useSession();
-
+    //console.log("Session Data:", session);
     const {
         data: realtor,
         isLoading,
