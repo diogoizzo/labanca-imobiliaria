@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "../assets/css/styles.css";
 import "../assets/css/colors.css";
-import QueryClientProviders from "./QueryClientProvider";
+import QueryClientProviders from "../components/QueryClientProvider";
 
 export const metadata: Metadata = {
     title: "Labanca Imobiliária - Seu Imóvel em Barra do Piraí",

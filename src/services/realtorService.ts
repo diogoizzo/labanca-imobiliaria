@@ -17,3 +17,18 @@ export const createRealtor = async (
 
     return response.json();
 };
+
+export const getRealtor = async (id: string): Promise<any> => {
+    const response = await fetch(`/api/realtors/${id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch realtor");
+    }
+
+    return response.json();
+};
