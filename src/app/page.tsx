@@ -9,16 +9,14 @@ import ScrollToTop from "../components/scroll-to-top";
 import ExplorePropertyOne from "../components/explore-property-one";
 import CtaOne from "../components/property/cta-one";
 import Navbar from "../components/navbar/navbar";
-import SessionWrapper from "../components/auth/SessionWrapper";
 import HowItsWorkSale from "../components/how-its-work-sale";
 import SuspenseNavbar from "@/components/navbar/SuspenseNavbar";
 
 export default function Home() {
     return (
         <>
-            <SessionWrapper>
-                <SuspenseNavbar transparent={false} />
-            </SessionWrapper>
+            <SuspenseNavbar transparent={false} />
+
             <div
                 className="image-cover hero-banner"
                 style={{

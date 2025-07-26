@@ -1,28 +1,7 @@
 "use client";
 
 import React from "react";
-import AddImg from "@/components/add-img";
-
-export interface RealtorFormData {
-    fullName?: string;
-    title?: string;
-    phone?: string;
-    email?: string;
-    landline?: string;
-    description?: string;
-    address?: string;
-    address2?: string;
-    country?: string;
-    state?: string;
-    city?: string;
-    zipCode?: string;
-    facebook?: string;
-    twitter?: string;
-    linkedin?: string;
-    instagram?: string;
-    password?: string;
-    confirmPassword?: string;
-}
+import RealtorFormData from "@/interfaces/RealtorFormData";
 
 interface RealtorFormProps {
     realtorData?: RealtorFormData;

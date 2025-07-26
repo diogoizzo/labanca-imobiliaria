@@ -1,17 +1,61 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import SuspenseNavbar from "../../../components/navbar/SuspenseNavbar";
 import FooterTop from "../../../components/footer-top";
 import Footer from "../../../components/footer";
 import AddImg from "../../../components/add-img";
 import ScrollToTop from "../../../components/scroll-to-top";
-import SessionWrapper from "@/components/auth/SessionWrapper";
+import AdminSidebar from "@/components/admin-sidebar";
+import { getRealtor, updateRealtor } from "@/services/realtorService";
 
 export default function Page() {
+    const { data: session } = useSession();
+    const router = useRouter();
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    const id = session?.user?.id;
+
+    console.log(id);
+
+    const { data, isLoading } = useQuery({
+        queryKey: ["realtor", id],
+        queryFn: () => getRealtor(id!),
+        enabled: !!id,
+    });
+
+    const mutation = useMutation({
+        mutationFn: (formData: any) => updateRealtor(id!, formData),
+        onSuccess: () => router.push("/admin/perfil"),
+    });
+
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm();
+
+    React.useEffect(() => {
+        if (data) {
+            reset(data);
+        }
+    }, [data, reset]);
+
+    const onSubmit = (formData: any) => {
+        mutation.mutate(formData);
+    };
+
+    if (isLoading) {
+        return <div>Carregando...</div>;
+    }
     return (
         <>
-            <SessionWrapper>
-                <SuspenseNavbar transparent={false} />
-            </SessionWrapper>
+            <SuspenseNavbar transparent={false} />
+
             <div className="page-title">
                 <div className="container">
                     <div className="row">
@@ -29,21 +73,16 @@ export default function Page() {
             </div>
 
             <section className="gray-simple">
-                <div className="container">
+                <div className="container-fluid">
                     <div className="row">
-                        <div className="col-lg-12 col-md-12">
+                        <div className="col-lg-3 col-md-12">
+                            <AdminSidebar
+                                show={sidebarOpen}
+                                setShow={setSidebarOpen}
+                            />
+                        </div>
+                        <div className="col-lg-9 col-md-12">
                             <div className="submit-page">
-                                <div className="form-submit middle-logo">
-                                    <h3>Sua Imagem Profissional</h3>
-                                    <div className="submit-section">
-                                        <div className="form-row">
-                                            <div className="form-group col-md-12 position-relative">
-                                                <AddImg />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div className="form-submit">
                                     <h3>Informações Básicas</h3>
                                     <div className="submit-section">
@@ -51,17 +90,14 @@ export default function Page() {
                                             <div className="form-group col-md-12">
                                                 <label className="mb-2">
                                                     Nome Completo
-                                                    <span
-                                                        className="tip-topdata"
-                                                        data-tip="Nome Completo do Corretor"
-                                                    >
-                                                        <i className="fa-solid fa-info"></i>
-                                                    </span>
                                                 </label>
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="Nome do Corretor"
+                                                    {...register("name")}
+                                                    defaultValue={
+                                                        data?.fullName
+                                                    }
                                                 />
                                             </div>
 
@@ -72,7 +108,8 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="Corretor de Imóveis"
+                                                    {...register("role")}
+                                                    defaultValue={data?.role}
                                                 />
                                             </div>
 
@@ -83,7 +120,8 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="(XX) XXXXX-XXXX"
+                                                    {...register("phone")}
+                                                    defaultValue={data?.phone}
                                                 />
                                             </div>
 
@@ -94,7 +132,8 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="email@corretor.com"
+                                                    {...register("email")}
+                                                    defaultValue={data?.email}
                                                 />
                                             </div>
 
@@ -105,7 +144,10 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="(XX) XXXX-XXXX"
+                                                    {...register("landline")}
+                                                    defaultValue={
+                                                        data?.landline
+                                                    }
                                                 />
                                             </div>
 
@@ -115,7 +157,10 @@ export default function Page() {
                                                 </label>
                                                 <textarea
                                                     className="form-control h-120"
-                                                    defaultValue="Conte sobre sua experiência no mercado imobiliário de Barra do Piraí"
+                                                    {...register("description")}
+                                                    defaultValue={
+                                                        data?.description
+                                                    }
                                                 ></textarea>
                                             </div>
                                         </div>
@@ -132,7 +177,8 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="Rua Exemplo, 123"
+                                                    {...register("address")}
+                                                    defaultValue={data?.address}
                                                 />
                                             </div>
 
@@ -143,7 +189,10 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="Complemento"
+                                                    {...register("address2")}
+                                                    defaultValue={
+                                                        data?.address2
+                                                    }
                                                 />
                                             </div>
 
@@ -154,7 +203,8 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="Brasil"
+                                                    {...register("country")}
+                                                    defaultValue={data?.country}
                                                 />
                                             </div>
 
@@ -165,7 +215,8 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="RJ"
+                                                    {...register("state")}
+                                                    defaultValue={data?.state}
                                                 />
                                             </div>
 
@@ -176,7 +227,8 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="Barra do Piraí"
+                                                    {...register("city")}
+                                                    defaultValue={data?.city}
                                                 />
                                             </div>
 
@@ -187,7 +239,8 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="27175-000"
+                                                    {...register("zipCode")}
+                                                    defaultValue={data?.zipCode}
                                                 />
                                             </div>
                                         </div>
@@ -205,7 +258,10 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="https://facebook.com/seuperfil"
+                                                    {...register("facebook")}
+                                                    defaultValue={
+                                                        data?.facebook
+                                                    }
                                                 />
                                             </div>
 
@@ -216,7 +272,8 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="https://twitter.com/seuperfil"
+                                                    {...register("twitter")}
+                                                    defaultValue={data?.twitter}
                                                 />
                                             </div>
 
@@ -227,7 +284,10 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="https://linkedin.com/in/seuperfil"
+                                                    {...register("linkedin")}
+                                                    defaultValue={
+                                                        data?.linkedin
+                                                    }
                                                 />
                                             </div>
 
@@ -238,7 +298,10 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="https://plus.google.com/seuperfil"
+                                                    {...register("googlePlus")}
+                                                    defaultValue={
+                                                        data?.googlePlus
+                                                    }
                                                 />
                                             </div>
 
@@ -249,7 +312,10 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="https://instagram.com/seuperfil"
+                                                    {...register("instagram")}
+                                                    defaultValue={
+                                                        data?.instagram
+                                                    }
                                                 />
                                             </div>
 
@@ -260,7 +326,8 @@ export default function Page() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    defaultValue="https://tumblr.com/seuperfil"
+                                                    {...register("tumblr")}
+                                                    defaultValue={data?.tumblr}
                                                 />
                                             </div>
                                         </div>
@@ -293,7 +360,8 @@ export default function Page() {
                                 <div className="form-group col-lg-12 col-md-12">
                                     <button
                                         className="btn btn-primary px-5 rounded"
-                                        type="submit"
+                                        type="button"
+                                        onClick={handleSubmit(onSubmit)}
                                     >
                                         Atualizar Perfil e Continuar
                                     </button>

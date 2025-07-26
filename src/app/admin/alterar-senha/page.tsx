@@ -7,15 +7,13 @@ import AdminSidebar from "../../../components/admin-sidebar";
 import FooterTop from "../../../components/footer-top";
 import Footer from "../../../components/footer";
 import ScrollToTop from "../../../components/scroll-to-top";
-import SessionWrapper from "@/components/auth/SessionWrapper";
 
 export default function ChangePassword() {
     let [show, setShow] = useState<boolean>(false);
     return (
         <>
-            <SessionWrapper>
-                <UserNav />
-            </SessionWrapper>
+            <UserNav />
+
             <div className="page-title">
                 <div className="container">
                     <div className="row">

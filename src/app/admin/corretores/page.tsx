@@ -6,7 +6,6 @@ import FooterTop from "../../../components/footer-top";
 import Footer from "../../../components/footer";
 import ScrollToTop from "../../../components/scroll-to-top";
 import Image from "next/image";
-import SessionWrapper from "@/components/auth/SessionWrapper";
 
 interface AgentData {
     id: number;
@@ -20,9 +19,7 @@ interface AgentData {
 export default function Page() {
     return (
         <>
-            <SessionWrapper>
-                <SuspenseNavbar transparent={false} />
-            </SessionWrapper>
+            <SuspenseNavbar transparent={false} />
             <section className="bg-primary position-relative">
                 <div className="position-absolute start-0 top-0 w-25 h-15 bg-light rounded-end-pill opacity-25 mt-4"></div>
                 <div className="position-absolute start-0 bottom-0 w-15 h-20 bg-light rounded-top-pill opacity-25 ms-4"></div>

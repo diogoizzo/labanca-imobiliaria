@@ -6,9 +6,7 @@ import { useRouter } from "next/navigation";
 import SuspenseNavbar from "../../components/navbar/SuspenseNavbar";
 import FooterTop from "../../components/footer-top";
 import Footer from "../../components/footer";
-import AddImg from "../../components/add-img";
 import ScrollToTop from "../../components/scroll-to-top";
-import SessionWrapper from "@/components/auth/SessionWrapper";
 import RealtorForm from "@/components/form/RealtorForm";
 import { createRealtor } from "@/services/realtorService";
 
@@ -34,9 +32,8 @@ export default function Page() {
 
     return (
         <>
-            <SessionWrapper>
-                <SuspenseNavbar transparent={false} />
-            </SessionWrapper>
+            <SuspenseNavbar transparent={false} />
+
             <div className="page-title">
                 <div className="container">
                     <div className="row">

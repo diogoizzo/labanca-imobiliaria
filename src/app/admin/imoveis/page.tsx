@@ -11,15 +11,13 @@ import FooterTop from "../../../components/footer-top";
 
 import { userProperty } from "../../data/property";
 import ScrollToTop from "../../../components/scroll-to-top";
-import SessionWrapper from "@/components/auth/SessionWrapper";
 
 export default function Page() {
     let [show, setShow] = useState<boolean>(false);
     return (
         <>
-            <SessionWrapper>
-                <UserNav />
-            </SessionWrapper>
+            <UserNav />
+
             <div className="page-title">
                 <div className="container">
                     <div className="row">

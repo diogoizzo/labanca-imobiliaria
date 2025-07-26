@@ -4,14 +4,12 @@ import SuspenseNavbar from "../../../components/navbar/SuspenseNavbar";
 import FooterTop from "../../../components/footer-top";
 import Footer from "../../../components/footer";
 import ScrollToTop from "../../../components/scroll-to-top";
-import SessionWrapper from "@/components/auth/SessionWrapper";
 
 export default function Page() {
     return (
         <>
-            <SessionWrapper>
-                <SuspenseNavbar transparent={false} />
-            </SessionWrapper>
+            <SuspenseNavbar transparent={false} />
+
             <div className="page-title">
                 <div className="container">
                     <div className="row">

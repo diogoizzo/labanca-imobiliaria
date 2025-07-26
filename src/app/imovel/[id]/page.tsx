@@ -6,7 +6,6 @@ import FooterTop from "../../../components/footer-top";
 import Footer from "../../../components/footer";
 import ScrollToTop from "../../../components/scroll-to-top";
 import { propertyData } from "@/app/data/data";
-import SessionWrapper from "@/components/auth/SessionWrapper";
 import SuspenseNavbar from "@/components/navbar/SuspenseNavbar";
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -15,9 +14,8 @@ export default function Page({ params }: { params: { id: string } }) {
     );
     return (
         <>
-            <SessionWrapper>
-                <SuspenseNavbar transparent={false} />
-            </SessionWrapper>
+            <SuspenseNavbar transparent={false} />
+
             <HomeSliderTwo />
 
             <section className="gray-simple">
