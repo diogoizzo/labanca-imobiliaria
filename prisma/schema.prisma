@@ -10,6 +10,25 @@ generator client {
   provider = "prisma-client-js"
 }
 
+/// -------- ENUMS ----------
+enum ListingStatus {
+  FOR_SALE
+  FOR_RENT
+}
+
+enum PropertyType {
+  APARTMENT
+  HOUSE
+  STUDIO
+  KITNET
+  COMMERCIAL
+  OFFICE
+  WAREHOUSE
+  LAND
+  OTHER
+}
+
+/// -------- MODELS ----------
 model Realtor {
   id          String     @id @default(uuid())
   fullName    String
@@ -35,25 +54,81 @@ model Realtor {
 }
 
 model Property {
-  id          String   @id @default(uuid())
+  id          String        @id @default(uuid())
+  // básicos
   title       String
-  status      String // "ForRent", "ForSale"
-  type        String // "House", "Apartment", etc.
+  status      ListingStatus
+  type        PropertyType
   price       Float
-  area        Int?
-  bedrooms    Int?
-  bathrooms   Int?
-  address     String?
-  city        String?
-  state       String?
-  zipCode     String?
   description String?
-  age         String? // "0-5 Years", etc.
-  garage      Int?
-  rooms       Int?
-  features    String? // JSON array
-  realtorId   String
-  realtor     Realtor  @relation(fields: [realtorId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+
+  // localização
+  country      String?
+  state        String?
+  city         String?
+  neighborhood String?
+  street       String?
+  streetNumber String?
+  zipCode      String?
+  latitude     Float?
+  longitude    Float?
+
+  // metragens
+  usableArea Int?
+  totalArea  Int?
+
+  // cômodos
+  bedrooms      Int?
+  suites        Int?
+  bathrooms     Int?
+  parkingSpaces Int?
+  rooms         Int?
+  floor         Int?
+  yearBuilt     Int?
+  age           String?
+
+  // encargos
+  condoFee Float?
+  iptu     Float?
+
+  // amenidades
+  privateAmenities Json?
+  commonAmenities  Json?
+  petsAllowed      Boolean?
+  furnished        Boolean?
+
+  // gerenciamento
+  referenceCode String?
+  lastUpdate    DateTime?
+  listingUrl    String?
+
+  // imagens
+  images PropertyImage[]
+
+  // relação com corretor
+  realtorId String
+  realtor   Realtor @relation(fields: [realtorId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PropertyImage {
+  id         String   @id @default(uuid())
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+
+  url         String // URL completa (S3, CDN, etc.)
+  storagePath String? // Caminho interno no bucket ou diretório
+  fileName    String? // Nome original do arquivo
+  mimeType    String? // image/jpeg, image/png...
+  fileSize    Int? // bytes
+  width       Int? // px
+  height      Int? // px
+  altText     String? // texto alternativo p/ acessibilidade/SEO
+  caption     String? // legenda opcional
+  sortOrder   Int? // posição na galeria (0 = capa)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

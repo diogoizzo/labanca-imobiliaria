@@ -33,60 +33,43 @@ export default function AdminSidebar({
                 <div className="d-navigation">
                     <ul>
                         <li
-                            className={current === "/dashboard" ? "active" : ""}
-                        >
-                            <Link href="/dashboard">
-                                <i className="fa-solid fa-gauge"></i>Painel
-                            </Link>
-                        </li>
-                        <li
                             className={
-                                current === "/my-profile" ? "active" : ""
+                                current === "/admin/perfil" ? "active" : ""
                             }
                         >
-                            <Link href="/my-profile">
+                            <Link href="/admin/perfil">
                                 <i className="fa-solid fa-address-card"></i>Meu
                                 Perfil
                             </Link>
                         </li>
                         <li
                             className={
-                                current === "/bookmark-list" ? "active" : ""
+                                current === "/admin/imoveis" ? "active" : ""
                             }
                         >
-                            <Link href="/bookmark-list">
-                                <i className="fa-solid fa-bookmark"></i>Imóveis
-                                Salvos
-                            </Link>
-                        </li>
-                        <li
-                            className={
-                                current === "/my-property" ? "active" : ""
-                            }
-                        >
-                            <Link href="/my-property">
+                            <Link href="/admin/imoveis">
                                 <i className="fa-solid fa-building-circle-check"></i>
-                                Minhas Propriedades
+                                Meus imóveis
                             </Link>
                         </li>
                         <li
                             className={
-                                current === "/submit-property-dashboard"
+                                current === "/admin/novo-imovel" ? "active" : ""
+                            }
+                        >
+                            <Link href="/admin/novo-imovel">
+                                <i className="fa-solid fa-house"></i>Cadastrar
+                                Novo Imóvel
+                            </Link>
+                        </li>
+                        <li
+                            className={
+                                current === "/admin/alterar-senha"
                                     ? "active"
                                     : ""
                             }
                         >
-                            <Link href="/submit-property-dashboard">
-                                <i className="fa-solid fa-house"></i>Cadastrar
-                                Nova Propriedade
-                            </Link>
-                        </li>
-                        <li
-                            className={
-                                current === "/change-password" ? "active" : ""
-                            }
-                        >
-                            <Link href="/change-password">
+                            <Link href="/admin/alterar-senha">
                                 <i className="fa-solid fa-unlock"></i>Alterar
                                 Senha
                             </Link>

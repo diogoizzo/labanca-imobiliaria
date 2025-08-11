@@ -103,45 +103,48 @@ export default function RealtorForm({
                     </div>
                 </div>
             </div>
+            {!realtorData ? (
+                <div className="form-submit">
+                    <h3>Credenciais de Acesso</h3>
+                    <div className="submit-section">
+                        <div className="row">
+                            <div className="form-group col-md-6">
+                                <label className="mb-2">Senha</label>
+                                <input
+                                    type="password"
+                                    className={`form-control ${
+                                        errors.password ? "is-invalid" : ""
+                                    }`}
+                                    {...register("password")}
+                                />
+                                {errors.password && (
+                                    <div className="invalid-feedback">
+                                        {errors.password.message}
+                                    </div>
+                                )}
+                            </div>
 
-            <div className="form-submit">
-                <h3>Credenciais de Acesso</h3>
-                <div className="submit-section">
-                    <div className="row">
-                        <div className="form-group col-md-6">
-                            <label className="mb-2">Senha</label>
-                            <input
-                                type="password"
-                                className={`form-control ${
-                                    errors.password ? "is-invalid" : ""
-                                }`}
-                                {...register("password")}
-                            />
-                            {errors.password && (
-                                <div className="invalid-feedback">
-                                    {errors.password.message}
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="form-group col-md-6">
-                            <label className="mb-2">Confirmar Senha</label>
-                            <input
-                                type="password"
-                                className={`form-control ${
-                                    errors.confirmPassword ? "is-invalid" : ""
-                                }`}
-                                {...register("confirmPassword")}
-                            />
-                            {errors.confirmPassword && (
-                                <div className="invalid-feedback">
-                                    {errors.confirmPassword.message}
-                                </div>
-                            )}
+                            <div className="form-group col-md-6">
+                                <label className="mb-2">Confirmar Senha</label>
+                                <input
+                                    type="password"
+                                    className={`form-control ${
+                                        errors.confirmPassword
+                                            ? "is-invalid"
+                                            : ""
+                                    }`}
+                                    {...register("confirmPassword")}
+                                />
+                                {errors.confirmPassword && (
+                                    <div className="invalid-feedback">
+                                        {errors.confirmPassword.message}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            ) : null}
 
             <div className="form-submit">
                 <h3>Localização</h3>
@@ -214,7 +217,7 @@ export default function RealtorForm({
                 <h3>Contas Sociais</h3>
                 <div className="submit-section">
                     <div className="row">
-                        <div className="form-group col-md-4">
+                        <div className="form-group col-md-6">
                             <label className="mb-2">Facebook</label>
                             <input
                                 type="text"
@@ -224,7 +227,7 @@ export default function RealtorForm({
                             />
                         </div>
 
-                        <div className="form-group col-md-4">
+                        <div className="form-group col-md-6">
                             <label className="mb-2">Twitter</label>
                             <input
                                 type="text"
@@ -234,7 +237,7 @@ export default function RealtorForm({
                             />
                         </div>
 
-                        <div className="form-group col-md-4">
+                        <div className="form-group col-md-6">
                             <label className="mb-2">LinkedIn</label>
                             <input
                                 type="text"
@@ -244,7 +247,7 @@ export default function RealtorForm({
                             />
                         </div>
 
-                        <div className="form-group col-md-4">
+                        <div className="form-group col-md-6">
                             <label className="mb-2">Instagram</label>
                             <input
                                 type="text"
@@ -255,25 +258,6 @@ export default function RealtorForm({
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="form-group col-lg-12 col-md-12">
-                <label className="mb-2">Acordo GDPR *</label>
-                <ul className="no-ul-list">
-                    <li>
-                        <input
-                            id="aj-1"
-                            className="form-check-input"
-                            name="aj-1"
-                            type="checkbox"
-                            required
-                        />
-                        <label htmlFor="aj-1" className="form-check-label ms-2">
-                            Eu concordo que este site armazene minhas
-                            informações enviadas para que possam responder à
-                            minha solicitação.
-                        </label>
-                    </li>
-                </ul>
             </div>
         </>
     );

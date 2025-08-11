@@ -5,16 +5,18 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function GET(
     request: Request,
-    { params }: { params: { id: string } }
+    context: { params: { id?: string } }
 ) {
     const session = await getServerSession(authOptions);
     if (!session) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await context.params;
+
     try {
         const realtor = await prisma.realtor.findUnique({
-            where: { id: params.id },
+            where: { id },
         });
 
         if (!realtor) {
@@ -35,16 +37,18 @@ export async function GET(
 
 export async function PUT(
     request: Request,
-    { params }: { params: { id: string } }
+    context: { params: { id: string } }
 ) {
     const session = await getServerSession(authOptions);
     if (!session) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await context.params;
+
     try {
         const realtor = await prisma.realtor.findUnique({
-            where: { id: params.id },
+            where: { id },
         });
 
         if (!realtor) {
@@ -56,7 +60,7 @@ export async function PUT(
 
         const body = await request.json();
         const updatedRealtor = await prisma.realtor.update({
-            where: { id: params.id },
+            where: { id },
             data: body,
         });
 
@@ -71,16 +75,18 @@ export async function PUT(
 
 export async function DELETE(
     request: Request,
-    { params }: { params: { id: string } }
+    context: { params: { id: string } }
 ) {
     const session = await getServerSession(authOptions);
     if (!session) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await context.params;
+
     try {
         const realtor = await prisma.realtor.findUnique({
-            where: { id: params.id },
+            where: { id },
         });
 
         if (!realtor) {
@@ -91,7 +97,7 @@ export async function DELETE(
         }
 
         await prisma.realtor.delete({
-            where: { id: params.id },
+            where: { id },
         });
 
         return NextResponse.json(

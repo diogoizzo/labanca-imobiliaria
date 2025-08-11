@@ -11,3 +11,4 @@
 -   Sempre verifique se uma rota de api com a finalidade desejada já existe, antes de criar uma nova.
 -   Sempre que for instalar um novo pacote ou lib use --legacy-peer-deps.
 -   Todas as interfaces do sistema fica em src/interfaces e você deve ler os arquivos dessa pasta, sempre que for trabalhar com algum tipo de dado personalizado do sistema.
+-   Sempre que for fazer qualquer funcionalidade de loading use o componente src/components/admin/LoadingSpinner.tsx

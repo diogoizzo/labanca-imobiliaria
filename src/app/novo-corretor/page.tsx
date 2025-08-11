@@ -39,11 +39,11 @@ export default function Page() {
                     <div className="row">
                         <div className="col-lg-12 col-md-12">
                             <h2 className="ipt-title">
-                                Atualize Seu Perfil Labanca
+                                Cadastre um novo corretor
                             </h2>
                             <span className="ipn-subtitle">
-                                Mantenha seus dados atualizados para melhor
-                                atendimento em Barra do Piraí
+                                Insira os dados no formulário abaixo para criar
+                                um novo corretor.
                             </span>
                         </div>
                     </div>

@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getRealtor } from "@/services/realtorService";
 import LoadingSpinner from "./LoadingSpinner";
 import { FaPencilAlt } from "react-icons/fa";
+import Link from "next/link";
 
 export default function ProfileDisplay() {
     const { data: session } = useSession();
@@ -23,11 +24,9 @@ export default function ProfileDisplay() {
 
     if (isLoading) {
         return (
-            <div className="form-submit">
-                <div className="d-flex justify-content-between align-items-center mb-3">
+            <div className="submit-page">
+                <div className="form-submit">
                     <h4>Perfil</h4>
-                </div>
-                <div className="submit-section">
                     <LoadingSpinner />
                 </div>
             </div>
@@ -66,8 +65,8 @@ export default function ProfileDisplay() {
             <div className="form-submit">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h4>Perfil</h4>
-                    <button
-                        type="button"
+                    <Link
+                        href="/admin/editar-perfil"
                         className="btn d-flex align-items-center justify-content-center p-0"
                         style={{
                             width: "35px",
@@ -76,10 +75,13 @@ export default function ProfileDisplay() {
                             border: "none",
                             borderRadius: "4px",
                             color: "#ffffff",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
                         }}
                     >
                         <FaPencilAlt size={15} />
-                    </button>
+                    </Link>
                 </div>
                 <div className="submit-section">
                     <div className="row">
