@@ -5,7 +5,7 @@ import "../assets/css/styles.css";
 import "../assets/css/colors.css";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // ajuste o caminho se necessário
+import { authOptions } from "../lib/auth"; // ajuste o caminho se necessário
 
 import SessionWrapper from "@/components/auth/SessionWrapper";
 import QueryClientProviders from "@/components/QueryClientProvider";

@@ -8,10 +8,13 @@ import ScrollToTop from "../../../components/scroll-to-top";
 import { propertyData } from "@/app/data/data";
 import SuspenseNavbar from "@/components/navbar/SuspenseNavbar";
 
-export default function Page({ params }: { params: { id: string } }) {
-    let data = propertyData.find(
-        (item: any) => item.id === parseInt(params.id)
-    );
+export default async function Page({
+    params,
+}: {
+    params: Promise<{ id: string }>;
+}) {
+    const { id } = await params;
+    let data = propertyData.find((item: any) => item.id === parseInt(id));
     return (
         <>
             <SuspenseNavbar transparent={false} />

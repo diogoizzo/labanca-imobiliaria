@@ -1,4 +1,4 @@
-import { RealtorFormData } from "@/components/form/RealtorForm";
+import RealtorFormData from "@/interfaces/RealtorFormData";
 
 export const createRealtor = async (
     realtorData: RealtorFormData

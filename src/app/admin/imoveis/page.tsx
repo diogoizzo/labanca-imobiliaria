@@ -182,8 +182,11 @@ export default function Page() {
                                                                         }
                                                                     />
                                                                 ),
-                                                                onClick:
-                                                                    () => {},
+                                                                onClick: () => {
+                                                                    router.push(
+                                                                        `/admin/imoveis/view/${item.id}/`
+                                                                    );
+                                                                },
                                                             },
                                                             {
                                                                 title: "Editar",

@@ -1,18 +1,18 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import prisma from "@/lib/prisma";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 export async function GET(
     request: Request,
-    context: { params: { id?: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     const session = await getServerSession(authOptions);
     if (!session) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id } = await context.params;
+    const { id } = await params;
 
     try {
         const realtor = await prisma.realtor.findUnique({
@@ -37,14 +37,14 @@ export async function GET(
 
 export async function PUT(
     request: Request,
-    context: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     const session = await getServerSession(authOptions);
     if (!session) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id } = await context.params;
+    const { id } = await params;
 
     try {
         const realtor = await prisma.realtor.findUnique({
@@ -75,14 +75,14 @@ export async function PUT(
 
 export async function DELETE(
     request: Request,
-    context: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     const session = await getServerSession(authOptions);
     if (!session) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id } = await context.params;
+    const { id } = await params;
 
     try {
         const realtor = await prisma.realtor.findUnique({
