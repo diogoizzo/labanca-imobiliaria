@@ -1,13 +1,14 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 export default function UserNav() {
     const [windowWidth, setWindowWidth] = useState(0);
     const [toggle, setIsToggle] = useState<boolean>(false);
     const [userMenu, setUserMenu] = useState<boolean>(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     const { data: session } = useSession();
 
@@ -41,6 +42,30 @@ export default function UserNav() {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setUserMenu(false);
+            }
+        };
+
+        if (userMenu) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [userMenu]);
+
+    const handleSignOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        signOut({ callbackUrl: "/" });
+    };
 
     return (
         <>
@@ -88,47 +113,47 @@ export default function UserNav() {
                             {/* Menu para mobile */}
                             <ul className="nav-menu align-to-right">
                                 <li className="mobile-menu-item d-block d-lg-none">
-                                    <Link href="/dashboard">
-                                        <i className="fa-solid fa-gauge"></i>
-                                        <span className="ms-2">Painel</span>
-                                    </Link>
-                                </li>
-                                <li className="mobile-menu-item d-block d-lg-none">
-                                    <Link href="/my-profile">
+                                    <Link href="/admin/perfil">
                                         <i className="fa-solid fa-address-card"></i>
                                         <span className="ms-2">Meu Perfil</span>
                                     </Link>
                                 </li>
                                 <li className="mobile-menu-item d-block d-lg-none">
-                                    <Link href="/my-property">
+                                    <Link href="/admin/imoveis">
                                         <i className="fa-solid fa-building-circle-check"></i>
                                         <span className="ms-2">
-                                            Minhas Propriedades
+                                            Meus imóveis
                                         </span>
                                     </Link>
                                 </li>
                                 <li className="mobile-menu-item d-block d-lg-none">
-                                    <Link href="/bookmark-list">
-                                        <i className="fa-solid fa-bookmark"></i>
-                                        <span className="ms-2">
-                                            Propriedades Salvas
-                                        </span>
-                                    </Link>
-                                </li>
-                                <li className="mobile-menu-item d-block d-lg-none">
-                                    <Link href="/submit-property-dashboard">
+                                    <Link href="/admin/novo-imovel">
                                         <i className="fa-solid fa-house"></i>
                                         <span className="ms-2">
-                                            Cadastrar Imóvel
+                                            Cadastrar Novo Imóvel
                                         </span>
                                     </Link>
                                 </li>
                                 <li className="mobile-menu-item d-block d-lg-none">
-                                    <Link href="/change-password">
+                                    <Link href="/admin/novo-corretor">
+                                        <i className="fa-solid fa-user-tie"></i>
+                                        <span className="ms-2">
+                                            Cadastrar Novo Corretor
+                                        </span>
+                                    </Link>
+                                </li>
+                                <li className="mobile-menu-item d-block d-lg-none">
+                                    <Link href="/admin/alterar-senha">
                                         <i className="fa-solid fa-unlock"></i>
                                         <span className="ms-2">
                                             Alterar Senha
                                         </span>
+                                    </Link>
+                                </li>
+                                <li className="mobile-menu-item d-block d-lg-none">
+                                    <Link href="#" onClick={handleSignOut}>
+                                        <i className="fa-solid fa-power-off"></i>
+                                        <span className="ms-2">Sair</span>
                                     </Link>
                                 </li>
                             </ul>
@@ -136,7 +161,10 @@ export default function UserNav() {
 
                         {/* Dropdown do usuário para desktop */}
                         <div className="d-none d-lg-block">
-                            <div className="btn-group account-drop">
+                            <div
+                                className="btn-group account-drop"
+                                ref={dropdownRef}
+                            >
                                 <button
                                     type="button"
                                     className="btn btn-order-by-filt dropdown-toggle menu-font"
@@ -154,29 +182,48 @@ export default function UserNav() {
                                         display: userMenu ? "block" : "none",
                                     }}
                                 >
-                                    <Link href="/dashboard">
-                                        <i className="fa-solid fa-gauge"></i>{" "}
-                                        Painel
-                                    </Link>
-                                    <Link href="/my-profile">
-                                        <i className="fa-solid fa-address-card"></i>{" "}
+                                    <Link
+                                        href="/admin/perfil"
+                                        className="dropdown-item py-2 text-dark"
+                                    >
+                                        <i className="fa-solid fa-address-card me-2"></i>
                                         Meu Perfil
                                     </Link>
-                                    <Link href="/my-property">
-                                        <i className="fa-solid fa-building-circle-check"></i>{" "}
-                                        Minhas Propriedades
+                                    <Link
+                                        href="/admin/imoveis"
+                                        className="dropdown-item py-2 text-dark"
+                                    >
+                                        <i className="fa-solid fa-building-circle-check me-2"></i>
+                                        Meus imóveis
                                     </Link>
-                                    <Link href="/bookmark-list">
-                                        <i className="fa-solid fa-bookmark"></i>{" "}
-                                        Propriedades Salvas
+                                    <Link
+                                        href="/admin/novo-imovel"
+                                        className="dropdown-item py-2 text-dark"
+                                    >
+                                        <i className="fa-solid fa-house me-2"></i>
+                                        Cadastrar Novo Imóvel
                                     </Link>
-                                    <Link href="/submit-property-dashboard">
-                                        <i className="fa-solid fa-house"></i>{" "}
-                                        Cadastrar Imóvel
+                                    <Link
+                                        href="/admin/novo-corretor"
+                                        className="dropdown-item py-2 text-dark"
+                                    >
+                                        <i className="fa-solid fa-user-tie me-2"></i>
+                                        Cadastrar Novo Corretor
                                     </Link>
-                                    <Link href="/change-password">
-                                        <i className="fa-solid fa-unlock"></i>{" "}
+                                    <Link
+                                        href="/admin/alterar-senha"
+                                        className="dropdown-item py-2 text-dark"
+                                    >
+                                        <i className="fa-solid fa-unlock me-2"></i>
                                         Alterar Senha
+                                    </Link>
+                                    <Link
+                                        href="#"
+                                        onClick={handleSignOut}
+                                        className="dropdown-item py-2 text-dark"
+                                    >
+                                        <i className="fa-solid fa-power-off me-2"></i>
+                                        Sair
                                     </Link>
                                 </div>
                             </div>

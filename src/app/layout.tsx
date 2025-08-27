@@ -1,8 +1,10 @@
 // app/layout.tsx
 import type { Metadata } from "next";
+
 import "./globals.css";
 import "../assets/css/styles.css";
 import "../assets/css/colors.css";
+import "tiny-slider/dist/tiny-slider.css";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "../lib/auth"; // ajuste o caminho se necessário

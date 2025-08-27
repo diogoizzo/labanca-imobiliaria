@@ -1,15 +1,305 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 
 import SideFilter from "../side-filter";
 import PropertySelect from "./property-select";
 import GridProperty from "./grid-property";
+import LoadingSpinner from "@/components/admin/LoadingSpinner";
 
-import { propertyData } from "@/app/data/data";
+import { useProperties } from "@/hooks/propertyHooks";
+import { PropertyWithImages } from "@/services/propertyService";
+import {
+    PROPERTY_TYPES,
+    PROPERTY_TYPE_LABELS,
+} from "@/constants/propertyConstants";
 
 export default function GridOne() {
     const [show, setShow] = useState<boolean>(false);
+
+    // Filter states
+    const [locationFilter, setLocationFilter] = useState<string>("");
+    const [propertyTypeFilter, setPropertyTypeFilter] = useState<string>("");
+    const [bedroomsFilter, setBedroomsFilter] = useState<string>("");
+    const [minPrice, setMinPrice] = useState<number | "">("");
+    const [maxPrice, setMaxPrice] = useState<number | "">("");
+    const [searchText, setSearchText] = useState<string>("");
+    const [selectedAmenities, setSelectedAmenities] = useState<Set<string>>(
+        new Set()
+    );
+
+    // Pagination state
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const { data: properties, isLoading, error } = useProperties();
+
+    // Transform database data to component format
+    const transformedProperties = useMemo(() => {
+        if (!properties) return [];
+
+        return properties.map((property: PropertyWithImages) => {
+            const address = `${property.street || ""} ${
+                property.streetNumber || ""
+            }, ${property.neighborhood || ""}, ${property.city || ""}, ${
+                property.state || ""
+            }`
+                .replace(/,\s*,/g, ",")
+                .replace(/^,|,$/g, "");
+
+            const imageUrls = property.images.map((img) => img.url);
+
+            let tag2 = "";
+            if (property.status === "FOR_SALE") {
+                tag2 = "For Sell";
+            } else if (property.status === "FOR_RENT") {
+                tag2 = "For Rent";
+            }
+
+            const typeMap = PROPERTY_TYPE_LABELS;
+
+            return {
+                id: property.id,
+                image: imageUrls,
+                tag: [], // Can be enhanced later with verification status
+                tag2,
+                type: typeMap[property.type] || property.type,
+                name: property.title,
+                loction: address,
+                size: `${property.bedrooms || 0} Quartos`,
+                beds: `${property.bedrooms || 0} Camas`,
+                sqft: `${property.usableArea || 0} m²`,
+                value:
+                    property.status === "FOR_RENT"
+                        ? `R$ ${property.price?.toLocaleString("pt-BR")}/mês`
+                        : `R$ ${property.price?.toLocaleString("pt-BR")}`,
+                baths: `${property.bathrooms || 0} Banheiros`,
+            };
+        });
+    }, [properties]);
+
+    // Apply filters
+    const filteredProperties = useMemo(() => {
+        let filtered = transformedProperties;
+
+        if (searchText) {
+            filtered = filtered.filter(
+                (item) =>
+                    item.name
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase()) ||
+                    item.loction
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase())
+            );
+        }
+
+        if (locationFilter && locationFilter !== "Barra do Piraí") {
+            filtered = filtered.filter((item) =>
+                item.loction
+                    .toLowerCase()
+                    .includes(locationFilter.toLowerCase())
+            );
+        }
+
+        if (propertyTypeFilter) {
+            const typeMapReverse = Object.fromEntries(
+                Object.entries(PROPERTY_TYPE_LABELS).map(([key, value]) => [
+                    value,
+                    key,
+                ])
+            );
+            const dbType = typeMapReverse[propertyTypeFilter];
+            if (dbType) {
+                filtered = filtered.filter((item) => {
+                    const property = properties?.find((p) => p.id === item.id);
+                    return property?.type === dbType;
+                });
+            }
+        }
+
+        if (bedroomsFilter) {
+            const bedroomsNum =
+                bedroomsFilter === "06+"
+                    ? 6
+                    : parseInt(bedroomsFilter.replace(" Quartos", ""));
+            filtered = filtered.filter((item) => {
+                const property = properties?.find((p) => p.id === item.id);
+                return (
+                    property &&
+                    property.bedrooms &&
+                    property.bedrooms >= bedroomsNum
+                );
+            });
+        }
+
+        if (minPrice !== "" || maxPrice !== "") {
+            filtered = filtered.filter((item) => {
+                const property = properties?.find((p) => p.id === item.id);
+                if (!property?.price) return false;
+
+                const price = property.price;
+                const min = minPrice === "" ? 0 : Number(minPrice);
+                const max = maxPrice === "" ? 999999 : Number(maxPrice);
+
+                return price >= min && price <= max;
+            });
+        }
+
+        if (selectedAmenities.size > 0) {
+            filtered = filtered.filter((item) => {
+                const property = properties?.find((p) => p.id === item.id);
+                if (!property) return false;
+
+                // Check if property has all selected amenities
+                const privateAmenities = Array.isArray(
+                    property.privateAmenities
+                )
+                    ? (property.privateAmenities as string[])
+                    : [];
+                const commonAmenities = Array.isArray(property.commonAmenities)
+                    ? (property.commonAmenities as string[])
+                    : [];
+
+                const propertyAmenities = new Set([
+                    ...privateAmenities,
+                    ...commonAmenities,
+                ]);
+
+                return Array.from(selectedAmenities).every((amenity) =>
+                    propertyAmenities.has(amenity)
+                );
+            });
+        }
+
+        return filtered;
+    }, [
+        transformedProperties,
+        searchText,
+        locationFilter,
+        propertyTypeFilter,
+        bedroomsFilter,
+        minPrice,
+        maxPrice,
+        selectedAmenities,
+        properties,
+    ]);
+
+    // Reset to page 1 when filters change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [
+        searchText,
+        locationFilter,
+        propertyTypeFilter,
+        bedroomsFilter,
+        minPrice,
+        maxPrice,
+        selectedAmenities,
+    ]);
+
+    // Pagination logic
+    const itemsPerPage = 10;
+    const totalPages = Math.ceil(filteredProperties.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedProperties = filteredProperties.slice(startIndex, endIndex);
+
+    // Render pagination
+    const renderPagination = () => {
+        if (totalPages <= 1) return null;
+
+        const pages = [];
+
+        // Previous button
+        pages.push(
+            <li
+                key="prev"
+                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+            >
+                <button
+                    className="page-link"
+                    onClick={() =>
+                        currentPage > 1 && setCurrentPage(currentPage - 1)
+                    }
+                    disabled={currentPage === 1}
+                    aria-label="Anterior"
+                >
+                    <i className="fa-solid fa-arrow-left-long"></i>
+                    <span className="sr-only">Anterior</span>
+                </button>
+            </li>
+        );
+
+        // Page numbers
+        for (let i = 1; i <= totalPages; i++) {
+            pages.push(
+                <li
+                    key={i}
+                    className={`page-item ${i === currentPage ? "active" : ""}`}
+                >
+                    <button
+                        className="page-link"
+                        onClick={() => setCurrentPage(i)}
+                    >
+                        {i}
+                    </button>
+                </li>
+            );
+        }
+
+        // Next button
+        pages.push(
+            <li
+                key="next"
+                className={`page-item ${
+                    currentPage === totalPages ? "disabled" : ""
+                }`}
+            >
+                <button
+                    className="page-link"
+                    onClick={() =>
+                        currentPage < totalPages &&
+                        setCurrentPage(currentPage + 1)
+                    }
+                    disabled={currentPage === totalPages}
+                    aria-label="Próximo"
+                >
+                    <i className="fa-solid fa-arrow-right-long"></i>
+                    <span className="sr-only">Próximo</span>
+                </button>
+            </li>
+        );
+
+        return <ul className="pagination p-center">{pages}</ul>;
+    };
+
+    if (isLoading) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 d-flex justify-content-center py-5">
+                        <LoadingSpinner />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 text-center py-5">
+                        <p>
+                            Erro ao carregar imóveis. Tente novamente mais
+                            tarde.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -45,7 +335,24 @@ export default function GridOne() {
 
             <div className="row">
                 <div className="col-lg-4 col-md-12 col-sm-12">
-                    <SideFilter show={show} setShow={setShow} />
+                    <SideFilter
+                        show={show}
+                        setShow={setShow}
+                        searchText={searchText}
+                        setSearchText={setSearchText}
+                        locationFilter={locationFilter}
+                        setLocationFilter={setLocationFilter}
+                        propertyTypeFilter={propertyTypeFilter}
+                        setPropertyTypeFilter={setPropertyTypeFilter}
+                        bedroomsFilter={bedroomsFilter}
+                        setBedroomsFilter={setBedroomsFilter}
+                        minPrice={minPrice}
+                        maxPrice={maxPrice}
+                        setMinPrice={setMinPrice}
+                        setMaxPrice={setMaxPrice}
+                        selectedAmenities={selectedAmenities}
+                        setSelectedAmenities={setSelectedAmenities}
+                    />
                 </div>
 
                 <div className="col-lg-8 col-md-12 col-sm-12">
@@ -149,69 +456,30 @@ export default function GridOne() {
                     </div> */}
 
                     <div className="row justify-content-center g-4">
-                        {propertyData.slice(0, 6).map((item, index) => {
-                            return (
-                                <div
-                                    className="col-xl-6 col-lg-6 col-md-6 col-sm-12"
-                                    key={index}
-                                >
-                                    <GridProperty item={item} border={false} />
-                                </div>
-                            );
-                        })}
+                        {filteredProperties.length === 0 ? (
+                            <div className="col-12 text-center py-5">
+                                <p>Nenhum imóvel encontrado.</p>
+                            </div>
+                        ) : (
+                            paginatedProperties.map((item, index) => {
+                                return (
+                                    <div
+                                        className="col-xl-6 col-lg-6 col-md-6 col-sm-12"
+                                        key={item.id || index}
+                                    >
+                                        <GridProperty
+                                            item={item}
+                                            border={false}
+                                        />
+                                    </div>
+                                );
+                            })
+                        )}
                     </div>
 
                     <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12">
-                            <ul className="pagination p-center">
-                                <li className="page-item">
-                                    <Link
-                                        className="page-link"
-                                        href="#"
-                                        aria-label="Anterior"
-                                    >
-                                        <i className="fa-solid fa-arrow-left-long"></i>
-                                        <span className="sr-only">
-                                            Anterior
-                                        </span>
-                                    </Link>
-                                </li>
-                                <li className="page-item">
-                                    <Link className="page-link" href="#">
-                                        1
-                                    </Link>
-                                </li>
-                                <li className="page-item">
-                                    <Link className="page-link" href="#">
-                                        2
-                                    </Link>
-                                </li>
-                                <li className="page-item active">
-                                    <Link className="page-link" href="#">
-                                        3
-                                    </Link>
-                                </li>
-                                <li className="page-item">
-                                    <Link className="page-link" href="#">
-                                        ...
-                                    </Link>
-                                </li>
-                                <li className="page-item">
-                                    <Link className="page-link" href="#">
-                                        18
-                                    </Link>
-                                </li>
-                                <li className="page-item">
-                                    <Link
-                                        className="page-link"
-                                        href="#"
-                                        aria-label="Próximo"
-                                    >
-                                        <i className="fa-solid fa-arrow-right-long"></i>
-                                        <span className="sr-only">Próximo</span>
-                                    </Link>
-                                </li>
-                            </ul>
+                            {renderPagination()}
                         </div>
                     </div>
                 </div>

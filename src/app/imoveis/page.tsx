@@ -13,9 +13,7 @@ export default function Page() {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 col-md-12">
-                            <h2 className="ipt-title">
-                                Imóveis Disponíveis em Barra do Piraí
-                            </h2>
+                            <h2 className="ipt-title">Imóveis Disponíveis</h2>
                             <span className="ipn-subtitle">
                                 Encontre a propriedade ideal para você
                             </span>

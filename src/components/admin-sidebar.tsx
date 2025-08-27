@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 export default function AdminSidebar({
     show,
@@ -12,6 +13,12 @@ export default function AdminSidebar({
 }) {
     const location = usePathname();
     const current = location;
+
+    const handleSignOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault(); // evita navegar para "#"
+        signOut({ callbackUrl: "/" }); // ajuste a rota se quiser
+    };
+
     return (
         <div
             className={`simple-sidebar sm-sidebar ${
@@ -64,6 +71,18 @@ export default function AdminSidebar({
                         </li>
                         <li
                             className={
+                                current === "/admin/novo-corretor"
+                                    ? "active"
+                                    : ""
+                            }
+                        >
+                            <Link href="/admin/novo-corretor">
+                                <i className="fa-solid fa-user-tie"></i>
+                                Cadastrar Novo Corretor
+                            </Link>
+                        </li>
+                        <li
+                            className={
                                 current === "/admin/alterar-senha"
                                     ? "active"
                                     : ""
@@ -75,7 +94,11 @@ export default function AdminSidebar({
                             </Link>
                         </li>
                         <li className={current === "#" ? "active" : ""}>
-                            <Link href="#">
+                            <Link
+                                href="#"
+                                onClick={handleSignOut}
+                                aria-label="Sair da conta"
+                            >
                                 <i className="fa-solid fa-power-off"></i>Sair
                             </Link>
                         </li>

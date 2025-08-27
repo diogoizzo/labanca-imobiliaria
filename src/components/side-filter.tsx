@@ -1,20 +1,65 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import {
+    PROPERTY_TYPES,
+    PROPERTY_TYPE_LABELS,
+    PRIVATE_AMENITIES,
+    COMMON_AMENITIES,
+} from "@/constants/propertyConstants";
 
 export default function SideFilter({
     show,
     setShow,
+    searchText,
+    setSearchText,
+    locationFilter,
+    setLocationFilter,
+    propertyTypeFilter,
+    setPropertyTypeFilter,
+    bedroomsFilter,
+    setBedroomsFilter,
+    minPrice,
+    maxPrice,
+    setMinPrice,
+    setMaxPrice,
+    selectedAmenities,
+    setSelectedAmenities,
 }: {
     show: any;
     setShow: any;
+    searchText: string;
+    setSearchText: (value: string) => void;
+    locationFilter: string;
+    setLocationFilter: (value: string) => void;
+    propertyTypeFilter: string;
+    setPropertyTypeFilter: (value: string) => void;
+    bedroomsFilter: string;
+    setBedroomsFilter: (value: string) => void;
+    minPrice: number | "";
+    maxPrice: number | "";
+    setMinPrice: (value: number | "") => void;
+    setMaxPrice: (value: number | "") => void;
+    selectedAmenities: Set<string>;
+    setSelectedAmenities: React.Dispatch<React.SetStateAction<Set<string>>>;
 }) {
     let [open, setOpen] = useState<boolean>(false);
     let [open2, setOpen2] = useState<boolean>(false);
     let [open3, setOpen3] = useState<boolean>(false);
     let [open4, setOpen4] = useState<boolean>(false);
     let [open5, setOpen5] = useState<boolean>(false);
-    let [open6, setOpen6] = useState<boolean>(false);
+
+    const handleAmenityToggle = (amenity: string) => {
+        setSelectedAmenities((prev) => {
+            const newSet = new Set(prev);
+            if (newSet.has(amenity)) {
+                newSet.delete(amenity);
+            } else {
+                newSet.add(amenity);
+            }
+            return newSet;
+        });
+    };
     return (
         <div
             className={`simple-sidebar sm-sidebar ${show ? "d-block" : ""}`}
@@ -40,6 +85,10 @@ export default function SideFilter({
                                     type="text"
                                     className="form-control rounded-3 ps-5"
                                     placeholder="Buscar por nome do imóvel…"
+                                    value={searchText}
+                                    onChange={(e) =>
+                                        setSearchText(e.target.value)
+                                    }
                                 />
                                 <div className="position-absolute top-50 start-0 translate-middle-y ms-2">
                                     <span className="svg-icon text-primary svg-icon-2hx">
@@ -169,7 +218,7 @@ export default function SideFilter({
                                     >
                                         Onde
                                         <span className="selected">
-                                            Barra do Piraí
+                                            {locationFilter || "Barra do Piraí"}
                                         </span>
                                     </Link>
                                 </h4>
@@ -191,6 +240,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="where"
                                                             type="radio"
+                                                            checked={
+                                                                locationFilter ===
+                                                                "Barra do Piraí"
+                                                            }
+                                                            onChange={() =>
+                                                                setLocationFilter(
+                                                                    "Barra do Piraí"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="b1"
@@ -205,6 +263,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="where"
                                                             type="radio"
+                                                            checked={
+                                                                locationFilter ===
+                                                                "Valença"
+                                                            }
+                                                            onChange={() =>
+                                                                setLocationFilter(
+                                                                    "Valença"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="b2"
@@ -219,6 +286,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="where"
                                                             type="radio"
+                                                            checked={
+                                                                locationFilter ===
+                                                                "Vassouras"
+                                                            }
+                                                            onChange={() =>
+                                                                setLocationFilter(
+                                                                    "Vassouras"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="b3"
@@ -233,7 +309,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="where"
                                                             type="radio"
-                                                            defaultChecked
+                                                            checked={
+                                                                locationFilter ===
+                                                                "Volta Redonda"
+                                                            }
+                                                            onChange={() =>
+                                                                setLocationFilter(
+                                                                    "Volta Redonda"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="b4"
@@ -248,6 +332,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="where"
                                                             type="radio"
+                                                            checked={
+                                                                locationFilter ===
+                                                                "Pinheiral"
+                                                            }
+                                                            onChange={() =>
+                                                                setLocationFilter(
+                                                                    "Pinheiral"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="b5"
@@ -262,6 +355,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="where"
                                                             type="radio"
+                                                            checked={
+                                                                locationFilter ===
+                                                                "Piraí"
+                                                            }
+                                                            onChange={() =>
+                                                                setLocationFilter(
+                                                                    "Piraí"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="b6"
@@ -276,6 +378,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="where"
                                                             type="radio"
+                                                            checked={
+                                                                locationFilter ===
+                                                                "Rio das Flores"
+                                                            }
+                                                            onChange={() =>
+                                                                setLocationFilter(
+                                                                    "Rio das Flores"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="b7"
@@ -290,6 +401,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="where"
                                                             type="radio"
+                                                            checked={
+                                                                locationFilter ===
+                                                                "Mendes"
+                                                            }
+                                                            onChange={() =>
+                                                                setLocationFilter(
+                                                                    "Mendes"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="b8"
@@ -304,6 +424,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="where"
                                                             type="radio"
+                                                            checked={
+                                                                locationFilter ===
+                                                                "Miguel Pereira"
+                                                            }
+                                                            onChange={() =>
+                                                                setLocationFilter(
+                                                                    "Miguel Pereira"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="b9"
@@ -333,7 +462,8 @@ export default function SideFilter({
                                     >
                                         Tipos de Propriedade
                                         <span className="selected">
-                                            Apartamento
+                                            {propertyTypeFilter ||
+                                                PROPERTY_TYPE_LABELS.APARTMENT}
                                         </span>
                                     </Link>
                                 </h4>
@@ -348,105 +478,54 @@ export default function SideFilter({
                                         <div className="card-body pt-0">
                                             <div className="inner_widget_link">
                                                 <ul className="no-ul-list filter-list">
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="c1"
-                                                            className="form-check-input"
-                                                            name="ptype"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="c1"
-                                                            className="form-check-label"
-                                                        >
-                                                            Casa
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="c2"
-                                                            className="form-check-input"
-                                                            name="ptype"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="c2"
-                                                            className="form-check-label"
-                                                        >
-                                                            Escritório
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="c3"
-                                                            className="form-check-input"
-                                                            name="ptype"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="c3"
-                                                            className="form-check-label"
-                                                        >
-                                                            Villa
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="c4"
-                                                            className="form-check-input"
-                                                            name="ptype"
-                                                            type="radio"
-                                                            defaultChecked
-                                                        />
-                                                        <label
-                                                            htmlFor="c4"
-                                                            className="form-check-label"
-                                                        >
-                                                            Apartamento
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="c5"
-                                                            className="form-check-input"
-                                                            name="ptype"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="c5"
-                                                            className="form-check-label"
-                                                        >
-                                                            Condomínio
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="c6"
-                                                            className="form-check-input"
-                                                            name="ptype"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="c6"
-                                                            className="form-check-label"
-                                                        >
-                                                            Terreno
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="c7"
-                                                            className="form-check-input"
-                                                            name="ptype"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="c7"
-                                                            className="form-check-label"
-                                                        >
-                                                            Studio
-                                                        </label>
-                                                    </li>
+                                                    {PROPERTY_TYPES.map(
+                                                        (t, index) => (
+                                                            <li
+                                                                key={t}
+                                                                className="form-check"
+                                                            >
+                                                                <input
+                                                                    id={`c${
+                                                                        index +
+                                                                        1
+                                                                    }`}
+                                                                    className="form-check-input"
+                                                                    name="ptype"
+                                                                    type="radio"
+                                                                    checked={
+                                                                        propertyTypeFilter ===
+                                                                            PROPERTY_TYPE_LABELS[
+                                                                                t
+                                                                            ] ||
+                                                                        (propertyTypeFilter ===
+                                                                            "" &&
+                                                                            t ===
+                                                                                "APARTMENT")
+                                                                    }
+                                                                    onChange={() =>
+                                                                        setPropertyTypeFilter(
+                                                                            PROPERTY_TYPE_LABELS[
+                                                                                t
+                                                                            ]
+                                                                        )
+                                                                    }
+                                                                />
+                                                                <label
+                                                                    htmlFor={`c${
+                                                                        index +
+                                                                        1
+                                                                    }`}
+                                                                    className="form-check-label"
+                                                                >
+                                                                    {
+                                                                        PROPERTY_TYPE_LABELS[
+                                                                            t
+                                                                        ]
+                                                                    }
+                                                                </label>
+                                                            </li>
+                                                        )
+                                                    )}
                                                 </ul>
                                             </div>
                                         </div>
@@ -468,7 +547,7 @@ export default function SideFilter({
                                     >
                                         Quartos
                                         <span className="selected">
-                                            2 Quartos
+                                            {bedroomsFilter || "2 Quartos"}
                                         </span>
                                     </Link>
                                 </h4>
@@ -489,6 +568,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="bed"
                                                             type="radio"
+                                                            checked={
+                                                                bedroomsFilter ===
+                                                                "01 Quarto"
+                                                            }
+                                                            onChange={() =>
+                                                                setBedroomsFilter(
+                                                                    "01 Quarto"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="a1"
@@ -503,6 +591,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="bed"
                                                             type="radio"
+                                                            checked={
+                                                                bedroomsFilter ===
+                                                                "02 Quartos"
+                                                            }
+                                                            onChange={() =>
+                                                                setBedroomsFilter(
+                                                                    "02 Quartos"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="a2"
@@ -517,6 +614,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="bed"
                                                             type="radio"
+                                                            checked={
+                                                                bedroomsFilter ===
+                                                                "03 Quartos"
+                                                            }
+                                                            onChange={() =>
+                                                                setBedroomsFilter(
+                                                                    "03 Quartos"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="a3"
@@ -531,7 +637,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="bed"
                                                             type="radio"
-                                                            defaultChecked
+                                                            checked={
+                                                                bedroomsFilter ===
+                                                                "04 Quartos"
+                                                            }
+                                                            onChange={() =>
+                                                                setBedroomsFilter(
+                                                                    "04 Quartos"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="a4"
@@ -546,6 +660,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="bed"
                                                             type="radio"
+                                                            checked={
+                                                                bedroomsFilter ===
+                                                                "05 Quartos"
+                                                            }
+                                                            onChange={() =>
+                                                                setBedroomsFilter(
+                                                                    "05 Quartos"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="a5"
@@ -560,6 +683,15 @@ export default function SideFilter({
                                                             className="form-check-input"
                                                             name="bed"
                                                             type="radio"
+                                                            checked={
+                                                                bedroomsFilter ===
+                                                                "06+ Quartos"
+                                                            }
+                                                            onChange={() =>
+                                                                setBedroomsFilter(
+                                                                    "06+ Quartos"
+                                                                )
+                                                            }
                                                         />
                                                         <label
                                                             htmlFor="a6"
@@ -589,7 +721,21 @@ export default function SideFilter({
                                     >
                                         Faixa de Preço
                                         <span className="selected">
-                                            R$ 100.000 - R$ 150.000
+                                            {minPrice !== "" || maxPrice !== ""
+                                                ? `R$ ${
+                                                      minPrice !== ""
+                                                          ? minPrice.toLocaleString(
+                                                                "pt-BR"
+                                                            )
+                                                          : "0"
+                                                  } - R$ ${
+                                                      maxPrice !== ""
+                                                          ? maxPrice.toLocaleString(
+                                                                "pt-BR"
+                                                            )
+                                                          : "∞"
+                                                  }`
+                                                : "Qualquer preço"}
                                         </span>
                                     </Link>
                                 </h4>
@@ -603,112 +749,104 @@ export default function SideFilter({
                                     <div className="single_filter_card">
                                         <div className="card-body pt-0">
                                             <div className="inner_widget_link">
-                                                <ul className="no-ul-list filter-list">
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="e1"
-                                                            className="form-check-input"
-                                                            name="prices"
-                                                            type="radio"
-                                                        />
+                                                <div className="row">
+                                                    <div className="col-6">
                                                         <label
-                                                            htmlFor="e1"
-                                                            className="form-check-label"
+                                                            htmlFor="minPrice"
+                                                            className="form-label"
                                                         >
-                                                            Menos de R$ 100.000
+                                                            Preço Mínimo
                                                         </label>
-                                                    </li>
-                                                    <li className="form-check">
                                                         <input
-                                                            id="e2"
-                                                            className="form-check-input"
-                                                            name="prices"
-                                                            type="radio"
+                                                            id="minPrice"
+                                                            type="number"
+                                                            className="form-control"
+                                                            placeholder="0"
+                                                            value={
+                                                                minPrice === ""
+                                                                    ? ""
+                                                                    : minPrice
+                                                            }
+                                                            onChange={(e) => {
+                                                                const value =
+                                                                    e.target
+                                                                        .value ===
+                                                                    ""
+                                                                        ? ""
+                                                                        : Number(
+                                                                              e
+                                                                                  .target
+                                                                                  .value
+                                                                          );
+                                                                if (
+                                                                    value ===
+                                                                        "" ||
+                                                                    maxPrice ===
+                                                                        "" ||
+                                                                    value <=
+                                                                        maxPrice
+                                                                ) {
+                                                                    setMinPrice(
+                                                                        value
+                                                                    );
+                                                                }
+                                                            }}
+                                                            min="0"
                                                         />
+                                                    </div>
+                                                    <div className="col-6">
                                                         <label
-                                                            htmlFor="e2"
-                                                            className="form-check-label"
+                                                            htmlFor="maxPrice"
+                                                            className="form-label"
                                                         >
-                                                            R$ 100.000 - R$
-                                                            150.000
+                                                            Preço Máximo
                                                         </label>
-                                                    </li>
-                                                    <li className="form-check">
                                                         <input
-                                                            id="e3"
-                                                            className="form-check-input"
-                                                            name="prices"
-                                                            type="radio"
+                                                            id="maxPrice"
+                                                            type="number"
+                                                            className="form-control"
+                                                            value={
+                                                                maxPrice === ""
+                                                                    ? ""
+                                                                    : maxPrice
+                                                            }
+                                                            onChange={(e) => {
+                                                                const value =
+                                                                    e.target
+                                                                        .value ===
+                                                                    ""
+                                                                        ? ""
+                                                                        : Number(
+                                                                              e
+                                                                                  .target
+                                                                                  .value
+                                                                          );
+                                                                if (
+                                                                    value ===
+                                                                        "" ||
+                                                                    minPrice ===
+                                                                        "" ||
+                                                                    value >=
+                                                                        minPrice
+                                                                ) {
+                                                                    setMaxPrice(
+                                                                        value
+                                                                    );
+                                                                }
+                                                            }}
+                                                            min="0"
                                                         />
-                                                        <label
-                                                            htmlFor="e3"
-                                                            className="form-check-label"
-                                                        >
-                                                            R$ 150.000 - R$
-                                                            250.000
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="e4"
-                                                            className="form-check-input"
-                                                            name="prices"
-                                                            type="radio"
-                                                            defaultChecked
-                                                        />
-                                                        <label
-                                                            htmlFor="e4"
-                                                            className="form-check-label"
-                                                        >
-                                                            R$ 250.000 - R$
-                                                            350.000
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="e5"
-                                                            className="form-check-input"
-                                                            name="prices"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="e5"
-                                                            className="form-check-label"
-                                                        >
-                                                            R$ 350.000 - R$
-                                                            500.000
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="e6"
-                                                            className="form-check-input"
-                                                            name="prices"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="e6"
-                                                            className="form-check-label"
-                                                        >
-                                                            R$ 500.000 - R$
-                                                            750.000
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="e7"
-                                                            className="form-check-input"
-                                                            name="prices"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="e7"
-                                                            className="form-check-label"
-                                                        >
-                                                            Mais de R$ 750.000
-                                                        </label>
-                                                    </li>
-                                                </ul>
+                                                    </div>
+                                                </div>
+                                                {minPrice !== "" &&
+                                                    maxPrice !== "" &&
+                                                    minPrice > maxPrice && (
+                                                        <div className="text-danger mt-2">
+                                                            O preço mínimo não
+                                                            pode ser maior que o
+                                                            máximo.
+                                                        </div>
+                                                    )}
                                             </div>
                                         </div>
                                     </div>
@@ -727,9 +865,9 @@ export default function SideFilter({
                                         }}
                                         className={open5 ? "" : "collapsed"}
                                     >
-                                        Estilo
+                                        Comodidades
                                         <span className="selected">
-                                            Qualquer Estilo
+                                            Acessibilidade
                                         </span>
                                     </Link>
                                 </h4>
@@ -743,329 +881,95 @@ export default function SideFilter({
                                     <div className="single_filter_card">
                                         <div className="card-body pt-0">
                                             <div className="inner_widget_link">
-                                                <ul className="no-ul-list filter-list">
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="f1"
-                                                            className="form-check-input"
-                                                            name="moods"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="f1"
-                                                            className="form-check-label"
-                                                        >
-                                                            Qualquer Estilo
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="f2"
-                                                            className="form-check-input"
-                                                            name="moods"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="f2"
-                                                            className="form-check-label"
-                                                        >
-                                                            Moderno
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="f3"
-                                                            className="form-check-input"
-                                                            name="moods"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="f3"
-                                                            className="form-check-label"
-                                                        >
-                                                            Clássico
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="f4"
-                                                            className="form-check-input"
-                                                            name="moods"
-                                                            type="radio"
-                                                            defaultChecked
-                                                        />
-                                                        <label
-                                                            htmlFor="f4"
-                                                            className="form-check-label"
-                                                        >
-                                                            Único
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="f5"
-                                                            className="form-check-input"
-                                                            name="moods"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="f5"
-                                                            className="form-check-label"
-                                                        >
-                                                            Aconchegante
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="f6"
-                                                            className="form-check-input"
-                                                            name="moods"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="f6"
-                                                            className="form-check-label"
-                                                        >
-                                                            Luxuoso
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="f7"
-                                                            className="form-check-input"
-                                                            name="moods"
-                                                            type="radio"
-                                                        />
-                                                        <label
-                                                            htmlFor="f7"
-                                                            className="form-check-label"
-                                                        >
-                                                            Compacto
-                                                        </label>
-                                                    </li>
-                                                </ul>
+                                                <div>
+                                                    <h6>
+                                                        Amenidades Privativas
+                                                    </h6>
+                                                    <ul className="no-ul-list filter-list">
+                                                        {PRIVATE_AMENITIES.map(
+                                                            (
+                                                                amenity,
+                                                                index
+                                                            ) => (
+                                                                <li
+                                                                    key={
+                                                                        amenity
+                                                                    }
+                                                                    className="form-check"
+                                                                >
+                                                                    <input
+                                                                        id={`priv-${index}`}
+                                                                        className="form-check-input"
+                                                                        type="checkbox"
+                                                                        checked={selectedAmenities.has(
+                                                                            amenity
+                                                                        )}
+                                                                        onChange={() =>
+                                                                            handleAmenityToggle(
+                                                                                amenity
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                    <label
+                                                                        htmlFor={`priv-${index}`}
+                                                                        className="form-check-label"
+                                                                    >
+                                                                        {
+                                                                            amenity
+                                                                        }
+                                                                    </label>
+                                                                </li>
+                                                            )
+                                                        )}
+                                                    </ul>
+
+                                                    <h6 className="mt-4">
+                                                        Amenidades Comuns
+                                                    </h6>
+                                                    <ul className="no-ul-list filter-list">
+                                                        {COMMON_AMENITIES.map(
+                                                            (
+                                                                amenity,
+                                                                index
+                                                            ) => (
+                                                                <li
+                                                                    key={
+                                                                        amenity
+                                                                    }
+                                                                    className="form-check"
+                                                                >
+                                                                    <input
+                                                                        id={`comm-${index}`}
+                                                                        className="form-check-input"
+                                                                        type="checkbox"
+                                                                        checked={selectedAmenities.has(
+                                                                            amenity
+                                                                        )}
+                                                                        onChange={() =>
+                                                                            handleAmenityToggle(
+                                                                                amenity
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                    <label
+                                                                        htmlFor={`comm-${index}`}
+                                                                        className="form-check-label"
+                                                                    >
+                                                                        {
+                                                                            amenity
+                                                                        }
+                                                                    </label>
+                                                                </li>
+                                                            )
+                                                        )}
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div className="single_search_boxed">
-                            <div className="widget-boxed-header">
-                                <h4>
-                                    <Link
-                                        href="#"
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            setOpen6(!open6);
-                                        }}
-                                        className={open6 ? "" : "collapsed"}
-                                    >
-                                        Comodidades
-                                        <span className="selected">
-                                            Acessibilidade
-                                        </span>
-                                    </Link>
-                                </h4>
-                            </div>
-                            <div
-                                className={`widget-boxed-body collapse ${
-                                    open6 ? "show" : ""
-                                }`}
-                            >
-                                <div className="side-list no-border">
-                                    <div className="single_filter_card">
-                                        <div className="card-body pt-0">
-                                            <div className="inner_widget_link">
-                                                <ul className="no-ul-list filter-list">
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="g1"
-                                                            className="form-check-input"
-                                                            name="ADA"
-                                                            type="checkbox"
-                                                            defaultChecked
-                                                        />
-                                                        <label
-                                                            htmlFor="g1"
-                                                            className="form-check-label"
-                                                        >
-                                                            Acessibilidade
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="g2"
-                                                            className="form-check-input"
-                                                            name="Parking"
-                                                            type="checkbox"
-                                                        />
-                                                        <label
-                                                            htmlFor="g2"
-                                                            className="form-check-label"
-                                                        >
-                                                            Opções de
-                                                            Estacionamento
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="g3"
-                                                            className="form-check-input"
-                                                            name="Coffee"
-                                                            type="checkbox"
-                                                        />
-                                                        <label
-                                                            htmlFor="g3"
-                                                            className="form-check-label"
-                                                        >
-                                                            Café Disponível
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="g4"
-                                                            className="form-check-input"
-                                                            name="Mother"
-                                                            type="checkbox"
-                                                        />
-                                                        <label
-                                                            htmlFor="g4"
-                                                            className="form-check-label"
-                                                        >
-                                                            Espaço para Mães
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="g5"
-                                                            className="form-check-input"
-                                                            name="Outdoor"
-                                                            type="checkbox"
-                                                        />
-                                                        <label
-                                                            htmlFor="g5"
-                                                            className="form-check-label"
-                                                        >
-                                                            Área Externa
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="g6"
-                                                            className="form-check-input"
-                                                            name="Pet"
-                                                            type="checkbox"
-                                                        />
-                                                        <label
-                                                            htmlFor="g6"
-                                                            className="form-check-label"
-                                                        >
-                                                            Aceita Animais
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="g7"
-                                                            className="form-check-input"
-                                                            name="Beauty"
-                                                            type="checkbox"
-                                                        />
-                                                        <label
-                                                            htmlFor="g7"
-                                                            className="form-check-label"
-                                                        >
-                                                            Beleza e Massagem
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="g8"
-                                                            className="form-check-input"
-                                                            name="Bike"
-                                                            type="checkbox"
-                                                        />
-                                                        <label
-                                                            htmlFor="g8"
-                                                            className="form-check-label"
-                                                        >
-                                                            Estacionamento de
-                                                            Bicicletas
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="g9"
-                                                            className="form-check-input"
-                                                            name="Phone"
-                                                            type="checkbox"
-                                                        />
-                                                        <label
-                                                            htmlFor="g9"
-                                                            className="form-check-label"
-                                                        >
-                                                            Linha Telefônica
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="g11"
-                                                            className="form-check-input"
-                                                            name="Private"
-                                                            type="checkbox"
-                                                        />
-                                                        <label
-                                                            htmlFor="g11"
-                                                            className="form-check-label"
-                                                        >
-                                                            Áreas Privativas
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="g12"
-                                                            className="form-check-input"
-                                                            name="Free"
-                                                            type="checkbox"
-                                                        />
-                                                        <label
-                                                            htmlFor="g12"
-                                                            className="form-check-label"
-                                                        >
-                                                            Wi-Fi Grátis
-                                                        </label>
-                                                    </li>
-                                                    <li className="form-check">
-                                                        <input
-                                                            id="g13"
-                                                            className="form-check-input"
-                                                            name="Swiming"
-                                                            type="checkbox"
-                                                        />
-                                                        <label
-                                                            htmlFor="g13"
-                                                            className="form-check-label"
-                                                        >
-                                                            Piscina
-                                                        </label>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="form-group filter_button mt-4">
-                        <button
-                            type="submit"
-                            className="btn btn btn-primary rounded full-width"
-                        >
-                            Pesquisar
-                        </button>
                     </div>
                 </div>
             </div>

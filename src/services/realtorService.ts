@@ -51,3 +51,30 @@ export const updateRealtor = async (
 
     return response.json();
 };
+
+export const changePassword = async (
+    id: string,
+    oldPassword: string,
+    newPassword: string
+): Promise<{ success: boolean; message: string }> => {
+    try {
+        const response = await fetch(`/api/realtors/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ oldPassword, newPassword }),
+        });
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        return {
+            success: false,
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "Failed to change password",
+        };
+    }
+};

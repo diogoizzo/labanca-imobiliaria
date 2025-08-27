@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { FaPencilAlt } from "react-icons/fa";
-
+import { PROPERTY_TYPE_LABELS } from "@/constants/propertyConstants";
 import UserNav from "@/components/navbar/user-nav";
 import AdminSidebar from "@/components/admin-sidebar";
 import Footer from "@/components/footer";
@@ -14,6 +14,7 @@ import FooterTop from "@/components/footer-top";
 import ScrollToTop from "@/components/scroll-to-top";
 import LoadingSpinner from "@/components/admin/LoadingSpinner";
 import { getProperty } from "@/services/propertyService";
+import Link from "next/link";
 
 export default function ViewPropertyPage() {
     const params = useParams<{ id: string }>();
@@ -205,17 +206,25 @@ export default function ViewPropertyPage() {
                                     <div className="form-submit">
                                         <div className="d-flex justify-content-between align-items-center mb-3">
                                             <h4>Dados Gerais</h4>
-                                            <button
-                                                onClick={() =>
-                                                    router.push(
-                                                        `/admin/imoveis/${id}`
-                                                    )
-                                                }
-                                                className="btn btn-primary position-absolute top-0 end-0"
+                                            <Link
+                                                href={`/admin/imoveis/${id}`} // ou o caminho de edição que você usa
+                                                className="btn d-flex align-items-center justify-content-center p-0"
+                                                style={{
+                                                    width: "35px",
+                                                    height: "35px",
+                                                    backgroundColor: "#084da3",
+                                                    border: "none",
+                                                    borderRadius: "4px",
+                                                    color: "#ffffff",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                }}
                                             >
-                                                <FaPencilAlt />
-                                            </button>
+                                                <FaPencilAlt size={15} />
+                                            </Link>
                                         </div>
+
                                         <div className="submit-section pt-2">
                                             <div className="row">
                                                 <div className="form-group col-md-12">
@@ -252,8 +261,11 @@ export default function ViewPropertyPage() {
                                                         Tipo de Imóvel
                                                     </label>
                                                     <p className="form-control">
-                                                        {property?.type ||
-                                                            "Não informado"}
+                                                        {property?.type
+                                                            ? PROPERTY_TYPE_LABELS[
+                                                                  property.type
+                                                              ]
+                                                            : "Não informado"}
                                                     </p>
                                                 </div>
                                                 <div className="form-group col-md-6">

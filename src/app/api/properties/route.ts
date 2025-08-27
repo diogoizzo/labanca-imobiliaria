@@ -31,35 +31,14 @@ const storage = diskStorage({
 });
 
 export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-
-    // Build filter object from query parameters
-    const filters: any = {
-        status: validateStatus(searchParams.get("status")),
-        type: validatePropertyType(searchParams.get("type")),
-        price: {
-            gte: searchParams.get("minPrice")
-                ? Number(searchParams.get("minPrice"))
-                : undefined,
-            lte: searchParams.get("maxPrice")
-                ? Number(searchParams.get("maxPrice"))
-                : undefined,
-        },
-        bedrooms: searchParams.get("bedrooms")
-            ? Number(searchParams.get("bedrooms"))
-            : undefined,
-        bathrooms: searchParams.get("bathrooms")
-            ? Number(searchParams.get("bathrooms"))
-            : undefined,
-        city: searchParams.get("city") || undefined,
-        state: searchParams.get("state") || undefined,
-    };
-
     try {
         const properties = await prisma.property.findMany({
-            where: filters,
             include: {
-                images: true,
+                images: {
+                    orderBy: {
+                        sortOrder: "asc",
+                    },
+                },
             },
         });
         return NextResponse.json(properties);

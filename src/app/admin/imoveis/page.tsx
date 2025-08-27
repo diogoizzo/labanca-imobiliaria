@@ -167,7 +167,11 @@ export default function Page() {
                                                             <strong>
                                                                 Tipo:
                                                             </strong>{" "}
-                                                            {item.type}
+                                                            {
+                                                                PROPERTY_TYPE_LABELS[
+                                                                    item.type
+                                                                ]
+                                                            }
                                                         </div>
                                                     </div>
 

@@ -1,5 +1,16 @@
-import { useMutation } from "@tanstack/react-query";
-import { createProperty, updateProperty } from "@/services/propertyService";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import {
+    getAllProperties,
+    createProperty,
+    updateProperty,
+} from "@/services/propertyService";
+
+export function useProperties() {
+    return useQuery({
+        queryKey: ["properties"],
+        queryFn: getAllProperties,
+    });
+}
 
 export function useCreateProperty() {
     return useMutation({

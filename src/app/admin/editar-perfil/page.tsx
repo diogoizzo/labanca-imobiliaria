@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import SuspenseNavbar from "../../../components/navbar/SuspenseNavbar";
+import UserNav from "@/components/navbar/user-nav";
 import FooterTop from "../../../components/footer-top";
 import Footer from "../../../components/footer";
 import AddImg from "../../../components/add-img";
@@ -54,7 +54,7 @@ export default function Page() {
     if (isLoading) {
         return (
             <>
-                <SuspenseNavbar transparent={false} />
+                <UserNav />
 
                 <div className="page-title">
                     <div className="container">
@@ -96,7 +96,7 @@ export default function Page() {
     }
     return (
         <>
-            <SuspenseNavbar transparent={false} />
+            <UserNav />
 
             <div className="page-title">
                 <div className="container">
