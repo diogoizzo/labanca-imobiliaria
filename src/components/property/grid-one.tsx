@@ -62,7 +62,10 @@ export default function GridOne() {
                 image: imageUrls,
                 tag: [], // Can be enhanced later with verification status
                 tag2,
-                type: typeMap[property.type] || property.type,
+                type:
+                    typeMap[
+                        property.type as keyof typeof PROPERTY_TYPE_LABELS
+                    ] || property.type,
                 name: property.title,
                 loction: address,
                 size: `${property.bedrooms || 0} Quartos`,

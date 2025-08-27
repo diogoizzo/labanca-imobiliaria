@@ -4,7 +4,54 @@ import Image from "next/image";
 
 import { featureProperty } from "@/app/data/property";
 
-export default function DetailSidebar() {
+interface Property {
+    id: string;
+    title: string;
+    status: string;
+    type: string;
+    price: number;
+    description?: string;
+    bedrooms?: number;
+    bathrooms?: number;
+    suites?: number;
+    parkingSpaces?: number;
+    rooms?: number;
+    floor?: number;
+    yearBuilt?: number;
+    usableArea?: number;
+    totalArea?: number;
+    condoFee?: number;
+    iptu?: number;
+    privateAmenities?: any;
+    commonAmenities?: any;
+    petsAllowed?: boolean;
+    furnished?: boolean;
+    images: Array<{
+        id: string;
+        url: string;
+        sortOrder?: number;
+    }>;
+    realtor: {
+        id: string;
+        fullName: string;
+        phone?: string;
+        email: string;
+    };
+    latitude?: number;
+    longitude?: number;
+    street?: string;
+    streetNumber?: string;
+    neighborhood?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+}
+
+interface DetailSidebarProps {
+    property: Property;
+}
+
+export default function DetailSidebar({ property }: DetailSidebarProps) {
     return (
         <>
             <div className="details-sidebar">
@@ -21,10 +68,16 @@ export default function DetailSidebar() {
 
                         <div className="sides-widget-details">
                             <h4>
-                                <Link href="#">Camila Barros</Link>
+                                <Link href="#">
+                                    {property.realtor?.fullName ||
+                                        "Corretor não informado"}
+                                </Link>
                             </h4>
 
-                            <span>(24) 99999-9999</span>
+                            <span>
+                                {property.realtor?.phone ||
+                                    "Telefone não informado"}
+                            </span>
                         </div>
                         <div className="clearfix"></div>
                     </div>

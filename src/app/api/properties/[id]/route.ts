@@ -36,6 +36,7 @@ export async function GET(
                 images: {
                     orderBy: { sortOrder: "asc" },
                 },
+                realtor: true,
             },
         });
 

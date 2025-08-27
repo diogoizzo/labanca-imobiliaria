@@ -167,11 +167,9 @@ export default function Page() {
                                                             <strong>
                                                                 Tipo:
                                                             </strong>{" "}
-                                                            {
-                                                                PROPERTY_TYPE_LABELS[
-                                                                    item.type
-                                                                ]
-                                                            }
+                                                            {PROPERTY_TYPE_LABELS[
+                                                                item.type as keyof typeof PROPERTY_TYPE_LABELS
+                                                            ] || item.type}
                                                         </div>
                                                     </div>
 

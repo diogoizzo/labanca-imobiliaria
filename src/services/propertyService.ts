@@ -1,7 +1,48 @@
 import { Property, PropertyImage } from "@prisma/client";
 
-export type PropertyWithImages = Property & {
-    images: PropertyImage[];
+export type PropertyWithImages = {
+    id: string;
+    title: string;
+    status: string;
+    type: string;
+    price: number;
+    description?: string;
+    bedrooms?: number;
+    bathrooms?: number;
+    suites?: number;
+    parkingSpaces?: number;
+    rooms?: number;
+    floor?: number;
+    yearBuilt?: number;
+    usableArea?: number;
+    totalArea?: number;
+    condoFee?: number;
+    iptu?: number;
+    age?: string;
+    referenceCode?: string;
+    privateAmenities?: any;
+    commonAmenities?: any;
+    petsAllowed?: boolean;
+    furnished?: boolean;
+    images: {
+        id: string;
+        url: string;
+        sortOrder?: number;
+    }[];
+    realtor: {
+        id: string;
+        fullName: string;
+        phone?: string;
+        email: string;
+    };
+    latitude?: number;
+    longitude?: number;
+    street?: string;
+    streetNumber?: string;
+    neighborhood?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
 };
 
 // Helper: monta a base URL somente no server (no client continua vazio)

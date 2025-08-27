@@ -263,8 +263,8 @@ export default function ViewPropertyPage() {
                                                     <p className="form-control">
                                                         {property?.type
                                                             ? PROPERTY_TYPE_LABELS[
-                                                                  property.type
-                                                              ]
+                                                                  property.type as keyof typeof PROPERTY_TYPE_LABELS
+                                                              ] || property.type
                                                             : "Não informado"}
                                                     </p>
                                                 </div>

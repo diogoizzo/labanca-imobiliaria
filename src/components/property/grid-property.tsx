@@ -86,9 +86,7 @@ export default function GridProperty({
                             {item.image.map((el: any, index: number) => {
                                 return (
                                     <div key={index}>
-                                        <Link
-                                            href={`/single-property-1/${item.id}`}
-                                        >
+                                        <Link href={`/imovel/${item.id}`}>
                                             <Image
                                                 src={el}
                                                 width={0}
@@ -130,7 +128,7 @@ export default function GridProperty({
                                 </span>
                             </div>
                             <h4 className="listing-name fw-semibold fs-5 mb-2 mt-3">
-                                <Link href={`/propriedade/${item.id}`}>
+                                <Link href={`/imovel/${item.id}`}>
                                     {item.name}
                                 </Link>
                             </h4>
@@ -178,7 +176,7 @@ export default function GridProperty({
                         </h6>
                     </div>
                     <div className="footer-flex">
-                        <Link href={`/imovel/1`} className="prt-view">
+                        <Link href={`/imovel/${item.id}`} className="prt-view">
                             <button className="btn btn-light-primary fw-medium rounded btn-sm norma-text ">
                                 Saiba mais...
                             </button>
