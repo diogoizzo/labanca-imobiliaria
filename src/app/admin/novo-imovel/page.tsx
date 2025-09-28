@@ -13,16 +13,13 @@ export default function NewPropertyPage() {
     return (
         <>
             <UserNav />
-
             <div className="page-title">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 col-md-12">
                             <h2 className="ipt-title">Cadastrar Novo Imóvel</h2>
                             <span className="ipn-subtitle">
-                                Destaque seu imóvel com a Labanca Imobiliária -
-                                a líder em compra, venda e locação em Barra do
-                                Piraí. Conectamos você aos melhores clientes!
+                                Insira as informações do imóvel.
                             </span>
                         </div>
                     </div>

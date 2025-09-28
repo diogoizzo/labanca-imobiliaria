@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
+import { compareNormalized } from "@/lib/textUtils";
 
 import SideFilter from "../side-filter";
 import PropertySelect from "./property-select";
@@ -14,15 +15,39 @@ import {
     PROPERTY_TYPE_LABELS,
 } from "@/constants/propertyConstants";
 
-export default function GridOne() {
+interface GridOneProps {
+    initialFilters?: {
+        minPrice?: string;
+        maxPrice?: string;
+        propertyType?: string;
+        status?: string;
+        bedrooms?: string;
+        location?: string;
+    };
+}
+
+export default function GridOne({ initialFilters }: GridOneProps) {
     const [show, setShow] = useState<boolean>(false);
 
     // Filter states
-    const [locationFilter, setLocationFilter] = useState<string>("");
-    const [propertyTypeFilter, setPropertyTypeFilter] = useState<string>("");
-    const [bedroomsFilter, setBedroomsFilter] = useState<string>("");
-    const [minPrice, setMinPrice] = useState<number | "">("");
-    const [maxPrice, setMaxPrice] = useState<number | "">("");
+    const [locationFilter, setLocationFilter] = useState<string>(
+        initialFilters?.location || ""
+    );
+    const [propertyTypeFilter, setPropertyTypeFilter] = useState<string>(
+        initialFilters?.propertyType || ""
+    );
+    const [statusFilter, setStatusFilter] = useState<string>(
+        initialFilters?.status || ""
+    );
+    const [bedroomsFilter, setBedroomsFilter] = useState<string>(
+        initialFilters?.bedrooms || ""
+    );
+    const [minPrice, setMinPrice] = useState<number | "">(
+        initialFilters?.minPrice ? Number(initialFilters.minPrice) : ""
+    );
+    const [maxPrice, setMaxPrice] = useState<number | "">(
+        initialFilters?.maxPrice ? Number(initialFilters.maxPrice) : ""
+    );
     const [searchText, setSearchText] = useState<string>("");
     const [selectedAmenities, setSelectedAmenities] = useState<Set<string>>(
         new Set()
@@ -96,12 +121,11 @@ export default function GridOne() {
             );
         }
 
-        if (locationFilter && locationFilter !== "Barra do Piraí") {
-            filtered = filtered.filter((item) =>
-                item.loction
-                    .toLowerCase()
-                    .includes(locationFilter.toLowerCase())
-            );
+        if (locationFilter) {
+            filtered = filtered.filter((item) => {
+                const property = properties?.find((p) => p.id === item.id);
+                return compareNormalized(property?.city || "", locationFilter);
+            });
         }
 
         if (propertyTypeFilter) {
@@ -118,6 +142,14 @@ export default function GridOne() {
                     return property?.type === dbType;
                 });
             }
+        }
+
+        if (statusFilter) {
+            const dbStatus = statusFilter === "venda" ? "FOR_SALE" : "FOR_RENT";
+            filtered = filtered.filter((item) => {
+                const property = properties?.find((p) => p.id === item.id);
+                return property?.status === dbStatus;
+            });
         }
 
         if (bedroomsFilter) {
@@ -180,6 +212,7 @@ export default function GridOne() {
         searchText,
         locationFilter,
         propertyTypeFilter,
+        statusFilter,
         bedroomsFilter,
         minPrice,
         maxPrice,
@@ -194,6 +227,7 @@ export default function GridOne() {
         searchText,
         locationFilter,
         propertyTypeFilter,
+        statusFilter,
         bedroomsFilter,
         minPrice,
         maxPrice,
@@ -347,6 +381,8 @@ export default function GridOne() {
                         setLocationFilter={setLocationFilter}
                         propertyTypeFilter={propertyTypeFilter}
                         setPropertyTypeFilter={setPropertyTypeFilter}
+                        statusFilter={statusFilter}
+                        setStatusFilter={setStatusFilter}
                         bedroomsFilter={bedroomsFilter}
                         setBedroomsFilter={setBedroomsFilter}
                         minPrice={minPrice}
@@ -359,105 +395,6 @@ export default function GridOne() {
                 </div>
 
                 <div className="col-lg-8 col-md-12 col-sm-12">
-                    {/* <div className="row justify-content-center">
-                        <div className="col-lg-12 col-md-12">
-                            <div className="item-shorting-box">
-                                <div className="item-shorting clearfix">
-                                    <div className="left-column pull-left">
-                                        <h4 className="fs-6 m-0">
-                                            Exibindo 1-10 de 142 Resultados
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div className="item-shorting-box-right">
-                                    <div className="shorting-by">
-                                        <PropertySelect />
-                                    </div>
-                                    <ul className="shorting-list">
-                                        <li>
-                                            <Link
-                                                href="/grid-layout-with-sidebar"
-                                                className="active w-12 h-12"
-                                            >
-                                                <span className="svg-icon text-seegreen svg-icon-2hx">
-                                                    <svg
-                                                        width="24"
-                                                        height="24"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <rect
-                                                            x="2"
-                                                            y="2"
-                                                            width="9"
-                                                            height="9"
-                                                            rx="2"
-                                                            fill="currentColor"
-                                                        />
-                                                        <rect
-                                                            opacity="0.3"
-                                                            x="13"
-                                                            y="2"
-                                                            width="9"
-                                                            height="9"
-                                                            rx="2"
-                                                            fill="currentColor"
-                                                        />
-                                                        <rect
-                                                            opacity="0.3"
-                                                            x="13"
-                                                            y="13"
-                                                            width="9"
-                                                            height="9"
-                                                            rx="2"
-                                                            fill="currentColor"
-                                                        />
-                                                        <rect
-                                                            opacity="0.3"
-                                                            x="2"
-                                                            y="13"
-                                                            width="9"
-                                                            height="9"
-                                                            rx="2"
-                                                            fill="currentColor"
-                                                        />
-                                                    </svg>
-                                                </span>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link
-                                                href="/list-layout-with-sidebar"
-                                                className="w-12 h-12"
-                                            >
-                                                <span className="svg-icon text-muted-2 svg-icon-2hx">
-                                                    <svg
-                                                        width="24"
-                                                        height="24"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path
-                                                            opacity="0.3"
-                                                            d="M14 10V20C14 20.6 13.6 21 13 21H10C9.4 21 9 20.6 9 20V10C9 9.4 9.4 9 10 9H13C13.6 9 14 9.4 14 10ZM20 9H17C16.4 9 16 9.4 16 10V20C16 20.6 16.4 21 17 21H20C20.6 21 21 20.6 21 20V10C21 9.4 20.6 9 20 9Z"
-                                                            fill="currentColor"
-                                                        />
-                                                        <path
-                                                            d="M7 10V20C7 20.6 6.6 21 6 21H3C2.4 21 2 20.6 2 20V10C2 9.4 2.4 9 3 9H6C6.6 9 7 9.4 7 10ZM21 6V3C21 2.4 20.6 2 20 2H3C2.4 2 2 2.4 2 3V6C2 6.6 2.4 7 3 7H20C20.6 7 21 6.6 21 6Z"
-                                                            fill="currentColor"
-                                                        />
-                                                    </svg>
-                                                </span>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
-
                     <div className="row justify-content-center g-4">
                         {filteredProperties.length === 0 ? (
                             <div className="col-12 text-center py-5">

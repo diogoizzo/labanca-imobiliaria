@@ -34,75 +34,33 @@ export default function GridProperty({
                 border ? "border" : "border-0"
             }`}
         >
-            <div className={`listing-img-wrapper p-3 `}>
+            <div className={`listing-img-wrapper p-3`}>
                 <div className="list-img-slide position-relative">
                     <div className="position-absolute top-0 left-0 ms-3 mt-3 z-1">
-                        {/* {item.tag.map((el: any, index: number) => {
-                            return (
-                                <div
-                                    key={index}
-                                    className={`label text-light d-inline-flex align-items-center justify-content-center mx-1 ${
-                                        el === "Verified" ? "bg-success" : ""
-                                    } ${
-                                        el === "SuperAgent" ? "bg-purple" : ""
-                                    } ${el === "New" ? "bg-danger" : ""}`}
-                                >
-                                    {el === "Verified" && (
-                                        <img
-                                            src="/img/svg/verified.svg"
-                                            alt=""
-                                            className="me-1"
-                                        />
-                                    )}
-
-                                    {el === "SuperAgent" && (
-                                        <img
-                                            src="/img/svg/user-1.svg"
-                                            alt=""
-                                            className="me-1"
-                                        />
-                                    )}
-
-                                    {el === "New" && (
-                                        <img
-                                            src="/img/svg/moon.svg"
-                                            alt=""
-                                            className="me-1"
-                                        />
-                                    )}
-                                    {el === "Verified"
-                                        ? "Verificado"
-                                        : el === "SuperAgent"
-                                        ? "SuperAgente"
-                                        : el === "New"
-                                        ? "Novo"
-                                        : el}
-                                </div>
-                            );
-                        })} */}
+                        {/* badges opcional */}
                     </div>
+
                     <div className="click rounded-3 overflow-hidden mb-0">
                         <TinySlider settings={settings}>
-                            {item.image.map((el: any, index: number) => {
-                                return (
-                                    <div key={index}>
-                                        <Link href={`/imovel/${item.id}`}>
-                                            <Image
-                                                src={el}
-                                                width={0}
-                                                height={0}
-                                                sizes="100vw"
-                                                style={{
-                                                    width: "100%",
-                                                    height: "auto",
-                                                }}
-                                                className="img-fluid"
-                                                alt=""
-                                            />
-                                        </Link>
-                                    </div>
-                                );
-                            })}
+                            {item.image.map((el: any, index: number) => (
+                                <div key={index}>
+                                    <Link href={`/imovel/${item.id}`}>
+                                        <Image
+                                            src={el}
+                                            width={0}
+                                            height={0}
+                                            sizes="100vw"
+                                            style={{
+                                                width: "100%",
+                                                height: "250px",
+                                                objectFit: "cover",
+                                            }}
+                                            className="img-fluid"
+                                            alt=""
+                                        />
+                                    </Link>
+                                </div>
+                            ))}
                         </TinySlider>
                     </div>
                 </div>
@@ -112,7 +70,7 @@ export default function GridProperty({
                 <div className="listing-detail-wrapper">
                     <div className="listing-short-detail-wrap">
                         <div className="listing-short-detail">
-                            <div className="d-flex align-items-center">
+                            <div className="d-flex align-items-center flex-wrap gap-2">
                                 {item.tag2 === "For Rent" && (
                                     <span className="label bg-light-success text-success prt-type me-2">
                                         Para Aluguel
@@ -127,49 +85,62 @@ export default function GridProperty({
                                     {item.type}
                                 </span>
                             </div>
-                            <h4 className="listing-name fw-semibold fs-5 mb-2 mt-3">
+
+                            <h4 className="listing-name fw-semibold fs-5 mt-3 mb-2">
                                 <Link href={`/imovel/${item.id}`}>
                                     {item.name}
                                 </Link>
                             </h4>
-                            <div className="prt-location text-muted-2 d-flex">
-                                <img src="/img/svg/map-1.svg" alt="" />
-                                {item.loction}
+
+                            {/* Localização — agora com o mesmo ícone/círculo dos demais */}
+                            <div className="prt-location text-muted-2 d-flex align-items-center gap-2 flex-wra mt-2">
+                                <div className="square--35 text-muted-2 fs-md circle gray-simple d-inline-flex align-items-center justify-content-center">
+                                    <i className="fa-solid fa-location-dot fa-lg"></i>
+                                </div>
+                                <span className="location-text small">
+                                    {item.loction}
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="price-features-wrapper">
-                    <div className="list-fx-features d-flex align-items-center justify-content-between">
-                        <div className="listing-card d-flex align-items-center">
-                            <div className="square--25 text-muted-2 fs-sm circle gray-simple me-1">
-                                <i className="fa-solid fa-building-shield fs-xs"></i>
+                {/* FEATURES — 3 colunas sempre lado a lado */}
+                <div className="price-features-wrapper mt-3">
+                    <div className="row row-cols-3 g-2 g-sm-3">
+                        {/* Área - Size */}
+                        <div className="col d-flex align-items-center">
+                            <div className="square--35 text-muted-2 fs-md circle gray-simple me-2 d-flex align-items-center justify-content-center">
+                                <i className="fa-solid fa-building-shield fa-lg feature-icon"></i>
                             </div>
-                            <span className="text-muted-2 fs-sm">
+                            <span className="text-muted-2 fw-medium feature-text">
                                 {item.size}
                             </span>
                         </div>
-                        <div className="listing-card d-flex align-items-center">
-                            <div className="square--25 text-muted-2 fs-sm circle gray-simple me-1">
-                                <i className="fa-solid fa-bed fs-xs"></i>
+
+                        {/* Quartos - Beds */}
+                        <div className="col d-flex align-items-center">
+                            <div className="square--35 text-muted-2 fs-md circle gray-simple me-2 d-flex align-items-center justify-content-center">
+                                <i className="fa-solid fa-bed fa-lg feature-icon"></i>
                             </div>
-                            <span className="text-muted-2 fs-sm">
+                            <span className="text-muted-2 fw-medium feature-text">
                                 {item.beds}
                             </span>
                         </div>
-                        <div className="listing-card d-flex align-items-center">
-                            <div className="square--25 text-muted-2 fs-sm circle gray-simple me-1">
-                                <i className="fa-solid fa-clone fs-xs"></i>
+
+                        {/* Metragem - Sqft */}
+                        <div className="col d-flex align-items-center">
+                            <div className="square--35 text-muted-2 fs-md circle gray-simple me-2 d-flex align-items-center justify-content-center">
+                                <i className="fa-solid fa-clone fa-lg feature-icon"></i>
                             </div>
-                            <span className="text-muted-2 fs-sm">
+                            <span className="text-muted-2 fw-medium feature-text">
                                 {item.sqft}
                             </span>
                         </div>
                     </div>
                 </div>
 
-                <div className="listing-detail-footer d-flex align-items-center justify-content-between py-4">
+                <div className="listing-detail-footer d-flex align-items-center justify-content-between py-4 flex-wrap gap-2">
                     <div className="listing-short-detail-flex">
                         <h6 className="listing-card-info-price m-0">
                             {item.value}
@@ -177,7 +148,7 @@ export default function GridProperty({
                     </div>
                     <div className="footer-flex">
                         <Link href={`/imovel/${item.id}`} className="prt-view">
-                            <button className="btn btn-light-primary fw-medium rounded btn-sm norma-text ">
+                            <button className="btn btn-light-primary fw-medium rounded btn-sm">
                                 Saiba mais...
                             </button>
                         </Link>

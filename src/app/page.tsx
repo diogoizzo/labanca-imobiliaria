@@ -1,5 +1,11 @@
+"use client";
 import Link from "next/link";
-import FormOne from "../components/form/form-one";
+import { useRef, useState, useEffect } from "react";
+import FormOne, { FormOneRef } from "../components/form/form-one";
+import {
+    getRecentProperties,
+    PropertyWithImages,
+} from "../services/propertyService";
 import HowItsWorkRent from "../components/how-its-work-rent";
 import GridPropertyOne from "../components/property/grid-property-one";
 import ClientOne from "../components/client-one";
@@ -13,6 +19,29 @@ import HowItsWorkSale from "../components/how-its-work-sale";
 import SuspenseNavbar from "@/components/navbar/SuspenseNavbar";
 
 export default function Home() {
+    const formRef = useRef<FormOneRef>(null);
+    const [properties, setProperties] = useState<PropertyWithImages[]>([]);
+
+    useEffect(() => {
+        const fetchRecentProperties = async () => {
+            try {
+                const recentProperties = await getRecentProperties();
+                setProperties(recentProperties);
+            } catch (error) {
+                console.error("Failed to fetch recent properties:", error);
+                // Fallback: pode definir um estado de erro ou array vazio
+                setProperties([]);
+            }
+        };
+
+        fetchRecentProperties();
+    }, []);
+
+    const handleSearchSubmit = () => {
+        if (formRef.current) {
+            formRef.current.submit();
+        }
+    };
     return (
         <>
             <SuspenseNavbar transparent={false} />
@@ -50,15 +79,16 @@ export default function Home() {
                                     </div>
                                 </div>
                             </div>
-                            <FormOne />
+                            <FormOne ref={formRef} />
                         </div>
                         <div className="hero-search-action">
-                            <Link
-                                href="/imoveis"
+                            <button
+                                type="button"
                                 className="btn full-width btn-primary"
+                                onClick={handleSearchSubmit}
                             >
                                 Buscar Imóveis
-                            </Link>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -106,7 +136,7 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <GridPropertyOne border={false} />
+                    <GridPropertyOne border={false} properties={properties} />
 
                     <div className="row align-items-center justify-content-center">
                         <div className="col-lg-12 col-md-12 col-sm-12 text-center mt-5">

@@ -5,7 +5,30 @@ import Footer from "../../components/footer";
 import ScrollToTop from "../../components/scroll-to-top";
 import SuspenseNavbar from "@/components/navbar/SuspenseNavbar";
 
-export default function Page() {
+interface SearchParams {
+    minPrice?: string;
+    maxPrice?: string;
+    tipo?: string;
+    status?: string;
+    bedrooms?: string;
+    location?: string;
+}
+
+export default async function Page({
+    searchParams,
+}: {
+    searchParams: Promise<SearchParams>;
+}) {
+    const params = await searchParams;
+    const initialFilters = {
+        minPrice: params.minPrice || "",
+        maxPrice: params.maxPrice || "",
+        propertyType: params.tipo || "",
+        status: params.status || "",
+        bedrooms: params.bedrooms || "",
+        location: params.location || "",
+    };
+
     return (
         <>
             <SuspenseNavbar transparent={false} />
@@ -23,7 +46,7 @@ export default function Page() {
             </div>
 
             <section className="gray-simple">
-                <GridOne />
+                <GridOne initialFilters={initialFilters} />
             </section>
 
             <FooterTop bg="theme-bg" />

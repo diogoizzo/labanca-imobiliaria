@@ -25,55 +25,8 @@ export default function Page() {
             <section>
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-7 col-md-7">
-                            <div className="row">
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="form-group">
-                                        <label className="mb-2">Nome</label>
-                                        <input
-                                            type="text"
-                                            className="form-control simple"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="form-group">
-                                        <label className="mb-2">E-mail</label>
-                                        <input
-                                            type="email"
-                                            className="form-control simple"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group">
-                                <label className="mb-2">Assunto</label>
-                                <input
-                                    type="text"
-                                    className="form-control simple"
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label className="mb-2">Mensagem</label>
-                                <textarea
-                                    className="form-control simple"
-                                    placeholder="Sua mensagem..."
-                                ></textarea>
-                            </div>
-
-                            <div className="form-group">
-                                <button
-                                    className="btn btn-primary px-5 rounded"
-                                    type="submit"
-                                >
-                                    Enviar Solicitação
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-5 col-md-5">
+                        {/* No mobile, as informações de contato vêm primeiro */}
+                        <div className="col-lg-5 col-md-5 order-md-1 order-2">
                             <div className="contact-info">
                                 <h2>Entre em Contato</h2>
                                 <p>
@@ -123,6 +76,55 @@ export default function Page() {
                                         (24) 3333-3333
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        {/* No mobile, o formulário vem depois */}
+                        <div className="col-lg-7 col-md-7 order-md-2 order-1 mb-md-0 mb-5">
+                            <div className="row">
+                                <div className="col-lg-6 col-md-6">
+                                    <div className="form-group">
+                                        <label className="mb-2">Nome</label>
+                                        <input
+                                            type="text"
+                                            className="form-control simple"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-lg-6 col-md-6">
+                                    <div className="form-group">
+                                        <label className="mb-2">E-mail</label>
+                                        <input
+                                            type="email"
+                                            className="form-control simple"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label className="mb-2">Assunto</label>
+                                <input
+                                    type="text"
+                                    className="form-control simple"
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className="mb-2">Mensagem</label>
+                                <textarea
+                                    className="form-control simple"
+                                    placeholder="Sua mensagem..."
+                                ></textarea>
+                            </div>
+
+                            <div className="form-group">
+                                <button
+                                    className="btn btn-primary px-5 rounded"
+                                    type="submit"
+                                >
+                                    Enviar Solicitação
+                                </button>
                             </div>
                         </div>
                     </div>

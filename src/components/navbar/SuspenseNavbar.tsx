@@ -17,7 +17,7 @@ function NavbarFallback({ transparent }: { transparent: boolean }) {
                     <div className="nav-header" style={{ lineHeight: "0" }}>
                         <div className="nav-brand text-logo">
                             <Image
-                                src="/img/logo.svg"
+                                src="/img/svg/logo-labanca.svg"
                                 width={50}
                                 height={50}
                                 alt="Resido Logo"

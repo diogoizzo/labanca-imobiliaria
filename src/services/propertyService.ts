@@ -130,3 +130,17 @@ export async function deleteProperty(id: string): Promise<void> {
         throw new Error("Failed to delete property");
     }
 }
+
+export async function getRecentProperties(): Promise<PropertyWithImages[]> {
+    const base = await getBaseUrl();
+    const response = await fetch(`${base}/api/properties/recent`, {
+        cache: "no-store",
+        next: { tags: ["recent-properties"] },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch recent properties");
+    }
+
+    return response.json();
+}

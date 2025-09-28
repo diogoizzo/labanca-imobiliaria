@@ -84,11 +84,16 @@ export default function UserNav() {
                         }
                     >
                         <div className="nav-header" style={{ lineHeight: "0" }}>
-                            <Link className="nav-brand text-logo" href="/">
-                                <img src="/img/logo.svg" alt="Labanca Logo" />
-                                <h5 className="fs-3 fw-bold ms-1 my-0">
+                            <Link href="/">
+                                <img
+                                    src="/img/logo-labanca.png"
+                                    width={250}
+                                    height={50}
+                                    alt="Labanca Logo"
+                                />
+                                {/* <h5 className="fs-3 fw-bold ms-1 my-0">
                                     Labanca
-                                </h5>
+                                </h5> */}
                             </Link>
                             <div
                                 className="nav-toggle"

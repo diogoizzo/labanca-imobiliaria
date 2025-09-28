@@ -73,15 +73,7 @@ export default function Page() {
 
             <section className="bg-light">
                 <div className="container-fluid">
-                    <div className="filter_search_opt mb-4">
-                        <button
-                            className="btn btn-dark"
-                            onClick={() => setShow(!show)}
-                        >
-                            Navegação do Painel
-                            <i className="fa-solid fa-bars ms-2"></i>
-                        </button>
-                    </div>
+                    {/* Botão de navegação do painel removido para mobile */}
 
                     <div className="row">
                         <div className="col-lg-3 col-md-12">
@@ -90,13 +82,14 @@ export default function Page() {
 
                         <div className="col-lg-9 col-md-12">
                             <div className="dashboard-wraper">
-                                <div className="d-flex justify-content-between align-items-center mb-4">
-                                    <h4>Seu Portfólio Labanca</h4>
+                                <div className="mb-4">
+                                    <h4 className="mb-3">
+                                        Seu Portfólio Labanca
+                                    </h4>
                                     <input
                                         type="text"
                                         placeholder="Buscar propriedades..."
                                         className="form-control"
-                                        style={{ maxWidth: "300px" }}
                                         value={searchTerm}
                                         onChange={(e) =>
                                             setSearchTerm(e.target.value)

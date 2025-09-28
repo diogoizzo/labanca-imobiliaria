@@ -5,7 +5,7 @@ import "./globals.css";
 import "../assets/css/styles.css";
 import "../assets/css/colors.css";
 import "tiny-slider/dist/tiny-slider.css";
-
+import "react-tabs/style/react-tabs.css";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../lib/auth"; // ajuste o caminho se necessário
 
@@ -13,7 +13,7 @@ import SessionWrapper from "@/components/auth/SessionWrapper";
 import QueryClientProviders from "@/components/QueryClientProvider";
 
 export const metadata: Metadata = {
-    title: "Labanca Imobiliária - Seu Imóvel em Barra do Piraí",
+    title: "Labanca Imobiliária",
     description:
         "Labanca Imobiliária: Compra, Venda e Locação de Imóveis em Barra do Piraí. Encontre a casa dos seus sonhos ou o investimento perfeito com a melhor imobiliária da região.",
 };

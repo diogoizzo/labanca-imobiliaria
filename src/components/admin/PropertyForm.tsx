@@ -19,10 +19,10 @@ import {
     propertySchema,
 } from "@/schemas/propertySchema";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
 import { FaTimes as X } from "react-icons/fa";
 import { useDropzone } from "react-dropzone";
 import { PropertyImage } from "@prisma/client";
+import { normalizeText } from "@/lib/textUtils";
 
 interface PropertyFormProps {
     defaultValues?: PropertyFormValues;
@@ -134,6 +134,12 @@ export default function PropertyForm({ defaultValues }: PropertyFormProps) {
         Object.keys(data).forEach((key) => {
             if (key !== "images") {
                 let value = (data as Record<string, any>)[key];
+
+                // Normalizar cidade antes de enviar ao backend
+                if (key === "city" && typeof value === "string") {
+                    value = normalizeText(value);
+                }
+
                 if (key === "privateAmenities" || key === "commonAmenities") {
                     value = JSON.stringify(value || []);
                 }
