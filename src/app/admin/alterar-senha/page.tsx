@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { useChangePassword } from "@/hooks/useChangePassword";
-import LoadingSpinner from "@/components/admin/LoadingSpinner";
+import { useChangePassword } from "../../../hooks/useChangePassword";
+import LoadingSpinner from "../../../components/admin/LoadingSpinner";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 

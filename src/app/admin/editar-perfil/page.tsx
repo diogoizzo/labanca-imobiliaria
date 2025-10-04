@@ -4,13 +4,13 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import UserNav from "@/components/navbar/user-nav";
+import UserNav from "./../../../components/navbar/user-nav";
 import FooterTop from "../../../components/footer-top";
 import Footer from "../../../components/footer";
 import AddImg from "../../../components/add-img";
 import ScrollToTop from "../../../components/scroll-to-top";
-import AdminSidebar from "@/components/admin-sidebar";
-import { getRealtor, updateRealtor } from "@/services/realtorService";
+import AdminSidebar from "./../../../components/admin-sidebar";
+import { getRealtor, updateRealtor } from "../../../services/realtorService";
 import LoadingSpinner from "@/components/admin/LoadingSpinner";
 import RealtorForm from "@/components/form/RealtorForm";
 
