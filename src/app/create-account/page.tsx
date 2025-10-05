@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import SuspenseNavbar from "../../../components/navbar/SuspenseNavbar";
-import FooterTop from "../../../components/footer-top";
-import Footer from "../../../components/footer";
-import ScrollToTop from "../../../components/scroll-to-top";
+import SuspenseNavbar from "../../components/navbar/SuspenseNavbar";
+import FooterTop from "../../components/footer-top";
+import Footer from "../../components/footer";
+import ScrollToTop from "../../components/scroll-to-top";
 
 export default function Page() {
     return (
