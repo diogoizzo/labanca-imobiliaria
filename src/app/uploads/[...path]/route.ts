@@ -14,8 +14,11 @@ const MIME: Record<string, string> = {
 // Se seus arquivos estão em /app/public/uploads (volume montado):
 const UPLOAD_ROOT = "/app/public/uploads";
 
-export async function GET(_req: Request, ctx: { params: { path: string[] } }) {
-    const rel = (ctx.params?.path ?? []).join("/");
+export async function GET(
+    _req: Request,
+    { params }: { params: Promise<{ path: string[] }> }
+) {
+    const rel = ((await params)?.path ?? []).join("/");
     // evita path traversal
     const filePath = path.join(UPLOAD_ROOT, rel);
     if (!filePath.startsWith(UPLOAD_ROOT)) {
@@ -42,8 +45,11 @@ export async function GET(_req: Request, ctx: { params: { path: string[] } }) {
 }
 
 // (opcional) responder HEAD corretamente
-export async function HEAD(_req: Request, ctx: { params: { path: string[] } }) {
-    const rel = (ctx.params?.path ?? []).join("/");
+export async function HEAD(
+    _req: Request,
+    { params }: { params: Promise<{ path: string[] }> }
+) {
+    const rel = ((await params)?.path ?? []).join("/");
     const filePath = path.join(UPLOAD_ROOT, rel);
     try {
         const stat = fs.statSync(filePath);
