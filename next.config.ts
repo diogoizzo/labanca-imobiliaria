@@ -2,10 +2,11 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+    images: { unoptimized: true },
     webpack: (config) => {
         config.resolve.alias = {
             ...(config.resolve.alias ?? {}),
-            "@": path.resolve(__dirname, "src"), // <- força @ -> src
+            "@": path.resolve(__dirname, "src"),
         };
         config.resolve.extensions = [
             ".ts",
@@ -19,5 +20,4 @@ const nextConfig: NextConfig = {
         return config;
     },
 };
-
 export default nextConfig;
