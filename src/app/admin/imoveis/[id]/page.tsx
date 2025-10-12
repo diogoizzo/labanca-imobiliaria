@@ -42,8 +42,17 @@ export default function EditPropertyPage() {
 
     const processedProperty = useMemo(() => {
         if (!property) return null as any;
+        const propertyNumber =
+            (property as any)?.number ?? property.streetNumber ?? "";
+        const normalizedNumber =
+            typeof propertyNumber === "string"
+                ? propertyNumber
+                : propertyNumber != null
+                ? String(propertyNumber)
+                : "";
         return {
             ...property,
+            number: normalizedNumber,
             privateAmenities:
                 typeof property.privateAmenities === "string"
                     ? JSON.parse(property.privateAmenities)

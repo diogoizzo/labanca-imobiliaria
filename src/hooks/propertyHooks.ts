@@ -4,6 +4,7 @@ import {
     getProperty,
     createProperty,
     updateProperty,
+    getHighlightedProperties,
 } from "@/services/propertyService";
 
 export function useProperties() {
@@ -30,5 +31,13 @@ export function useProperty(id: string) {
     return useQuery({
         queryKey: ["property", id],
         queryFn: () => getProperty(id),
+    });
+}
+
+export function useHighlightedProperties(propertyId: string) {
+    return useQuery({
+        queryKey: ["highlighted-properties", propertyId],
+        queryFn: () => getHighlightedProperties(propertyId),
+        enabled: Boolean(propertyId),
     });
 }

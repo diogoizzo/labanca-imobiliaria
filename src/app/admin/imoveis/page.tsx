@@ -126,8 +126,8 @@ export default function Page() {
                                                 </div>
 
                                                 {/* texto + ações */}
-                                                <div className="sd-list-right d-flex justify-content-between align-items-center flex-grow-1">
-                                                    <div>
+                                                <div className="sd-list-right d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start align-items-md-center flex-grow-1 gap-3">
+                                                    <div className="flex-grow-1">
                                                         <h4 className="listing_dashboard_title mb-1">
                                                             <Link
                                                                 href="#"
@@ -166,7 +166,7 @@ export default function Page() {
                                                         </div>
                                                     </div>
 
-                                                    <div className="d-flex">
+                                                    <div className="d-flex gap-2 align-self-stretch align-self-md-center justify-content-end mt-3 mt-md-0 flex-shrink-0">
                                                         {[
                                                             {
                                                                 title: "Ver",
@@ -230,17 +230,9 @@ export default function Page() {
                                                             ) => (
                                                                 <button
                                                                     key={title}
-                                                                    title={
-                                                                        title
-                                                                    }
-                                                                    onClick={
-                                                                        onClick
-                                                                    }
-                                                                    className={`btn btn-secondary p-0 d-flex align-items-center justify-content-center rounded ${
-                                                                        i < 2
-                                                                            ? "me-3"
-                                                                            : ""
-                                                                    }`}
+                                                                    title={title}
+                                                                    onClick={onClick}
+                                                                    className="btn btn-secondary p-0 d-flex align-items-center justify-content-center rounded"
                                                                     style={{
                                                                         width: "36px",
                                                                         height: "36px",

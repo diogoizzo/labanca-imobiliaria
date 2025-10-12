@@ -97,10 +97,10 @@ export default function Footer() {
                                 </h5> */}
                             </Link>
                             <div className="footer-add font-footer">
-                                {/* <p className="mb-1">
-                                    Rua Dr. Osvaldo Prado, 123 - Centro, Barra
-                                    do Piraí - RJ, 27175-000.
-                                </p> */}
+                                <p className="mb-1">
+                                    Av. Soares Ferreira, Casa 05 - Centro <br />
+                                    Barra do Piraí - RJ, 27175-000.
+                                </p>
                                 <p className="mb-1">
                                     <a
                                         href="https://wa.me/5524988044677"
@@ -110,13 +110,23 @@ export default function Footer() {
                                         +55 24 98804-4677
                                     </a>
                                 </p>
-                                <p className="mb-1 ">
+                                <p className="mb-5 ">
                                     <a
                                         href="mailto:contato@exemplo.com"
                                         className="normal-text"
                                     >
                                         gslainelabanca@hotmail.com
                                     </a>
+                                </p>
+                                <h4 className="widget-title text-center mt-5 mt-md-0">
+                                    Corretora Responsável
+                                </h4>
+                                <p className="">
+                                    Gislaine Sacramento Labanca
+                                    <br />
+                                    <span className="small-text">
+                                        CRECI-RJ 92459{" "}
+                                    </span>
                                 </p>
                             </div>
                         </div>

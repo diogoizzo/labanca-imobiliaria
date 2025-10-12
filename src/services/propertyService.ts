@@ -144,3 +144,27 @@ export async function getRecentProperties(): Promise<PropertyWithImages[]> {
 
     return response.json();
 }
+
+export async function getHighlightedProperties(
+    propertyId: string
+): Promise<PropertyWithImages[]> {
+    const base = await getBaseUrl();
+    const searchParams = new URLSearchParams({ propertyId });
+    const response = await fetch(
+        `${base}/api/properties/highlighted?${searchParams.toString()}`,
+        {
+            cache: "no-store",
+            next: { tags: ["highlighted-properties", propertyId] },
+        }
+    );
+
+    if (response.status === 404) {
+        return [];
+    }
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch highlighted properties");
+    }
+
+    return response.json();
+}

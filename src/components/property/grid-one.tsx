@@ -15,6 +15,23 @@ import {
     PROPERTY_TYPE_LABELS,
 } from "@/constants/propertyConstants";
 
+const formatCount = (
+    value: number | null | undefined,
+    singular: string,
+    plural: string
+) => {
+    const count = value ?? 0;
+    const label = count === 1 ? singular : plural;
+    return `${count} ${label}`;
+};
+
+const capitalizeFirst = (value: string | null | undefined) => {
+    const normalized = (value || "").toLowerCase();
+    return normalized
+        ? normalized.charAt(0).toUpperCase() + normalized.slice(1)
+        : "";
+};
+
 interface GridOneProps {
     initialFilters?: {
         minPrice?: string;
@@ -71,36 +88,47 @@ export default function GridOne({ initialFilters }: GridOneProps) {
                 .replace(/,\s*,/g, ",")
                 .replace(/^,|,$/g, "");
 
-            const imageUrls = property.images.map((img) => img.url);
+            const imageUrls = property.images?.map((img) => img.url) || [];
 
-            let tag2 = "";
-            if (property.status === "FOR_SALE") {
-                tag2 = "For Sell";
-            } else if (property.status === "FOR_RENT") {
-                tag2 = "For Rent";
-            }
+            const tag2 = property.status;
 
             const typeMap = PROPERTY_TYPE_LABELS;
+            const typeLabel =
+                typeMap[property.type as keyof typeof PROPERTY_TYPE_LABELS] ||
+                property.type;
+            const formattedType = capitalizeFirst(typeLabel);
+
+            const hasPrice =
+                typeof property.price === "number" &&
+                !Number.isNaN(property.price);
+            const formattedPrice = hasPrice
+                ? property.price!.toLocaleString("pt-BR")
+                : null;
 
             return {
                 id: property.id,
                 image: imageUrls,
                 tag: [], // Can be enhanced later with verification status
                 tag2,
-                type:
-                    typeMap[
-                        property.type as keyof typeof PROPERTY_TYPE_LABELS
-                    ] || property.type,
+                type: formattedType,
                 name: property.title,
                 loction: address,
-                size: `${property.bedrooms || 0} Quartos`,
-                beds: `${property.bedrooms || 0} Camas`,
-                sqft: `${property.usableArea || 0} m²`,
-                value:
-                    property.status === "FOR_RENT"
-                        ? `R$ ${property.price?.toLocaleString("pt-BR")}/mês`
-                        : `R$ ${property.price?.toLocaleString("pt-BR")}`,
-                baths: `${property.bathrooms || 0} Banheiros`,
+                bathrooms: formatCount(
+                    property.bathrooms,
+                    "banheiro",
+                    "banheiros"
+                ),
+                bedrooms: formatCount(
+                    property.bedrooms,
+                    "quarto",
+                    "quartos"
+                ),
+                area: `${property.usableArea || 0} m²`,
+                value: hasPrice
+                    ? property.status === "FOR_RENT"
+                        ? `R$ ${formattedPrice}/mês`
+                        : `R$ ${formattedPrice}`
+                    : "a combinar",
             };
         });
     }, [properties]);

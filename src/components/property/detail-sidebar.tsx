@@ -1,8 +1,10 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { featureProperty } from "@/app/data/property";
+import { useHighlightedProperties } from "@/hooks/propertyHooks";
 
 interface Property {
     id: string;
@@ -52,20 +54,39 @@ interface DetailSidebarProps {
 }
 
 export default function DetailSidebar({ property }: DetailSidebarProps) {
+    const whatsappNumber =
+        property.realtor?.phone?.replace(/\D/g, "") || undefined;
+    const whatsappLink = whatsappNumber
+        ? `https://wa.me/${whatsappNumber}`
+        : undefined;
+    const {
+        data: highlightedProperties = [],
+        isLoading: isLoadingHighlighted,
+        isError: isHighlightedError,
+    } = useHighlightedProperties(property.id);
+
+    const formatPrice = (price: number) =>
+        new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+            maximumFractionDigits: 0,
+        }).format(price);
+
+    const renderLocation = (item: Property) => {
+        const parts = [
+            item.neighborhood,
+            item.city,
+            item.state,
+        ].filter(Boolean);
+
+        return parts.join(", ");
+    };
+
     return (
         <>
             <div className="details-sidebar">
                 <div className="sides-widget">
                     <div className="sides-widget-header bg-primary">
-                        <div className="agent-photo">
-                            <Image
-                                src="/img/user-6.jpg"
-                                width={60}
-                                height={60}
-                                alt=""
-                            />
-                        </div>
-
                         <div className="sides-widget-details">
                             <h4>
                                 <Link href="#">
@@ -106,16 +127,38 @@ export default function DetailSidebar({ property }: DetailSidebarProps) {
                                 defaultValue="Tenho interesse nesta propriedade e gostaria de mais informações."
                             />
                         </div> */}
-                        <button className="btn btn-light-primary fw-medium rounded full-width">
-                            <img
-                                src="/img/svg/whatsapp-icon.svg"
-                                width={20}
-                                height={20}
-                                className="me-3 whatsapp-icon"
-                                alt=""
-                            />
-                            Enviar Mensagem
-                        </button>
+                        {whatsappLink ? (
+                            <a
+                                href={whatsappLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn btn-light-primary fw-medium rounded full-width"
+                            >
+                                <img
+                                    src="/img/svg/whatsapp-icon.svg"
+                                    width={20}
+                                    height={20}
+                                    className="me-3 whatsapp-icon"
+                                    alt=""
+                                />
+                                Enviar Mensagem
+                            </a>
+                        ) : (
+                            <button
+                                className="btn btn-light-primary fw-medium rounded full-width"
+                                type="button"
+                                disabled
+                            >
+                                <img
+                                    src="/img/svg/whatsapp-icon.svg"
+                                    width={20}
+                                    height={20}
+                                    className="me-3 whatsapp-icon"
+                                    alt=""
+                                />
+                                Número de WhatsApp indisponível
+                            </button>
+                        )}
                     </div>
                 </div>
 
@@ -182,52 +225,72 @@ export default function DetailSidebar({ property }: DetailSidebarProps) {
                     <h4>Propriedades em Destaque</h4>
 
                     <div className="sidebar_featured_property">
-                        {featureProperty.map((item: any, index: number) => {
-                            return (
-                                <div
-                                    className="sides_list_property"
-                                    key={index}
-                                >
-                                    <div className="sides_list_property_thumb">
-                                        <Image
-                                            src={item.image}
-                                            width={125}
-                                            height={75}
-                                            className="img-fluid"
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div className="sides_list_property_detail">
-                                        <h4>
-                                            <Link href="/single-property-1">
-                                                {item.name}
-                                            </Link>
-                                        </h4>
-                                        <span>
-                                            <i className="fa-solid fa-location-dot mt-2"></i>
-                                            {item.loction}
-                                        </span>
-                                        <div className="lists_property_price">
-                                            <div className="lists_property_types">
-                                                {item.type === "For Sale" && (
-                                                    <div className="property_types_vlix sale">
-                                                        Para Venda
-                                                    </div>
-                                                )}
-                                                {item.type === "For Rent" && (
-                                                    <div className="property_types_vlix">
-                                                        Para Aluguel
-                                                    </div>
-                                                )}
-                                            </div>
-                                            <div className="lists_property_price_value">
-                                                <h4>{item.value}</h4>
+                        {isLoadingHighlighted && (
+                            <p>Carregando imóveis em destaque...</p>
+                        )}
+                        {isHighlightedError && !isLoadingHighlighted && (
+                            <p>Não foi possível carregar propriedades em destaque.</p>
+                        )}
+                        {!isLoadingHighlighted &&
+                            !isHighlightedError &&
+                            highlightedProperties.length === 0 && (
+                                <p>Nenhuma propriedade em destaque encontrada.</p>
+                            )}
+                        {!isLoadingHighlighted &&
+                            !isHighlightedError &&
+                            highlightedProperties.map((item) => {
+                                const imageUrl =
+                                    item.images?.[0]?.url ??
+                                    "/img/sem-imagem.png";
+
+                                return (
+                                    <div
+                                        className="sides_list_property"
+                                        key={item.id}
+                                    >
+                                        <div className="sides_list_property_thumb">
+                                            <Image
+                                                src={imageUrl}
+                                                width={125}
+                                                height={75}
+                                                className="img-fluid"
+                                                alt={item.title}
+                                            />
+                                        </div>
+                                        <div className="sides_list_property_detail">
+                                            <h4>
+                                                <Link href={`/imovel/${item.id}`}>
+                                                    {item.title}
+                                                </Link>
+                                            </h4>
+                                            <span>
+                                                <i className="fa-solid fa-location-dot mt-2"></i>
+                                                {renderLocation(item) ||
+                                                    "Localidade não informada"}
+                                            </span>
+                                            <div className="lists_property_price">
+                                                <div className="lists_property_types">
+                                                    {item.status === "FOR_SALE" && (
+                                                        <div className="property_types_vlix sale">
+                                                            Para Venda
+                                                        </div>
+                                                    )}
+                                                    {item.status === "FOR_RENT" && (
+                                                        <div className="property_types_vlix">
+                                                            Para Aluguel
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="lists_property_price_value">
+                                                    <h4>
+                                                        {formatPrice(item.price)}
+                                                    </h4>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            );
-                        })}
+                                );
+                            })}
                     </div>
                 </div>
             </div>

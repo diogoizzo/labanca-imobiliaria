@@ -12531,6 +12531,11 @@ th.next.available,
     font-weight: 400 !important;
 }
 
+.small-text {
+    font-size: 14px !important;
+    font-weight: 200 !important;
+}
+
 .simple-text {
     font-size: 16px !important;
 }
@@ -12545,6 +12550,8 @@ th.next.available,
     transition: filter 0.2s ease !important;
 }
 
-.btn:hover .whatsapp-icon {
-    filter: brightness(0) invert(1) !important; /* Torna o ícone branco */
+.btn:hover .whatsapp-icon,
+.btn:active .whatsapp-icon,
+.btn:focus .whatsapp-icon {
+    filter: brightness(0) invert(1) !important; /* Torna o ícone claro durante interação */
 }
